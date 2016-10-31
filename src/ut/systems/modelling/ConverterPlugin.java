@@ -6,11 +6,10 @@ import org.processmining.framework.plugin.annotations.Plugin;
 import org.processmining.framework.plugin.annotations.PluginVariant;
 
 import org.processmining.models.graphbased.directed.bpmn.BPMNDiagram;
-import org.processmining.models.graphbased.directed.bpmn.BPMNNode;
 import org.processmining.models.graphbased.directed.petrinet.Petrinet;
-import org.processmining.models.graphbased.directed.petrinet.elements.Transition;
 import org.processmining.models.graphbased.directed.petrinet.impl.PetrinetImpl;
 
+import java.util.Collection;
 import java.util.Set;
 
 
@@ -33,34 +32,60 @@ public class ConverterPlugin {
     public static Petrinet optimizeDiagram(UIPluginContext context, BPMNDiagram diagram) {
         Petrinet pn = null;
 
+        // !!! BTW why are there some starnge multiplicities between task and
+        // MyBPMNModel in our application model (should be other way around imho)
 
-        //MyBPMNModel myBPMNModel = Parser.getMyBPMNModel(diagram);
-        //MyPetriNet myPetriNet = MyConverter.getPN(myBPMNModel);
+
+        //MyBPMNModel myMyBPMNModel = MyParser.getMyBPMNModel(diagram);
+        //MyPetriNet myPetriNet = MyConverter.getPN(myMyBPMNModel);
 
         //lets say i have a class called parser
         //with method getmybpmnmodeol
         //lets say we have class myconverter with method getPN
 
         //sth from practice session question
-        Transition t  = new Transition("", pn);
-        t.setInvisible(true);
-
-
-        //Set<BPMNNode> set = diagram.getNodes();
+        //Transition t  = new Transition("", pn);
+        //t.setInvisible(true);
 
 
 
-//        for (BPMNNode s : set) {
-//            System.out.println(s.toString());
-//        }
+        // did sth, maybe working
+        MyBPMNModel myMyBPMNModel = MyParser.getMyBPMNModel(diagram);
+
+        ///////////////TESTING //////////////////////////////////
+/*
+        Collection<myTask> myTasks = myMyBPMNModel.getTasks();
+        Set<MyBPMNNode> nodes = myMyBPMNModel.getNodes();
+        Collection<MySequenceFlow> flows = myMyBPMNModel.getSequenceFlows();
+        Collection<MyBPMNModel> subProcesses = myMyBPMNModel.getSubProcesses();
+
+       for ( myTask element : myTasks) {
+            System.out.println(element.toString());
+        }
+
+        for ( MyBPMNNode element : nodes) {
+            System.out.println(element.toString());
+        }
+
+        for ( MySequenceFlow element : flows) {
+            System.out.println(element.toString());
+        }
+
+        for ( MyBPMNModel element : subProcesses) {
+            System.out.println(element.toString());
+        }*/
+
+
+        ///////////////TESTING //////////////////////////////////
 
 
 
 
 
 
-//        MyBPMNModel myBPMNModel = getMyBPMNModel(diagram);
-//        pn = MyConverter.getPN(myBPMNModel); // fill this object with data from myPNObject
+
+
+        //pn = MyConverter.getPN(myMyBPMNModel); // fill this object with data from myPNObject
 
         pn = new PetrinetImpl("myPetriNet");
         pn.addPlace("Start_place");
