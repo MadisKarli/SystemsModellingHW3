@@ -10,8 +10,6 @@ public class MyBPMNModel {
 
     // holding all the nodes, just like in our application model from HW2
     private Set<MyBPMNNode> nodes;
-    // should be myTasks
-    private Collection<myTask> tasks;
     // mySequenceFlows
     private Collection<MySequenceFlow> sequenceFlows;
     // for later managing subprocesses
@@ -36,9 +34,6 @@ public class MyBPMNModel {
         this.nodes = nodes;
     }
 
-    public void setMyTasks(Collection<myTask> tasks) {
-        this.tasks = tasks;
-    }
 
     public void setMySequenceFlows(Collection<MySequenceFlow> sequenceFlows) {
         this.sequenceFlows = sequenceFlows;
@@ -53,9 +48,6 @@ public class MyBPMNModel {
         return nodes;
     }
 
-    public Collection<myTask> getTasks() {
-        return tasks;
-    }
 
     public Collection<MySequenceFlow> getSequenceFlows() {
         return sequenceFlows;

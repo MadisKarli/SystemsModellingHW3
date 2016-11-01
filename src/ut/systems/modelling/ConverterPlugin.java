@@ -54,12 +54,12 @@ public class ConverterPlugin {
 
         ///////////////TESTING //////////////////////////////////
 /*
-        Collection<myTask> myTasks = myMyBPMNModel.getTasks();
+        Collection<MyTask> myTasks = myMyBPMNModel.getTasks();
         Set<MyBPMNNode> nodes = myMyBPMNModel.getNodes();
         Collection<MySequenceFlow> flows = myMyBPMNModel.getSequenceFlows();
         Collection<MyBPMNModel> subProcesses = myMyBPMNModel.getSubProcesses();
 
-       for ( myTask element : myTasks) {
+       for ( MyTask element : myTasks) {
             System.out.println(element.toString());
         }
 
