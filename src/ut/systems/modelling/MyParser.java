@@ -16,7 +16,7 @@ public class MyParser {
 
 
 
-    protected MyBPMNModel getMyBPMNModel(BPMNDiagram diagram){
+    protected static MyBPMNModel getMyBPMNModel(BPMNDiagram diagram){
 
         MyBPMNModel myMyBPMNModel = new MyBPMNModel();
 
@@ -42,7 +42,7 @@ public class MyParser {
 
     /////////////////////////////////// NODE STUFF /////////////////////////////////////////////////
     //converts BPMNDiagram nodes into our Node format
-    private Set<MyBPMNNode> getMyNodes (BPMNDiagram diagram){
+    private static Set<MyBPMNNode> getMyNodes(BPMNDiagram diagram){
         Set<BPMNNode> nodes = diagram.getNodes();
         Set<MyBPMNNode> myNodes = null;
 
@@ -63,7 +63,7 @@ public class MyParser {
 
 
     // the BPMNDiagram node has some weird parameters, check later what is useful and what is not
-    private MyBPMNNode convertBPMNNode2MyBPMNNode (BPMNNode node){
+    private static MyBPMNNode convertBPMNNode2MyBPMNNode(BPMNNode node){
         MyBPMNNode myNode = new MyBPMNNode(node.getId().toString());
 
         return myNode;
@@ -75,7 +75,7 @@ public class MyParser {
     
 
 ////////////////////////////// SEQUENCEFLOW STUFF ////////////////////////////////////////
-    private Collection<MySequenceFlow> getMySequenceFlows (BPMNDiagram diagram){
+    private static Collection<MySequenceFlow> getMySequenceFlows(BPMNDiagram diagram){
         Collection<Flow> flows = diagram.getFlows();
         Collection<MySequenceFlow> myFlows = null;
 
@@ -87,7 +87,7 @@ public class MyParser {
     }
 
     //just inserting target id and source id to the sequenceflow object
-    private MySequenceFlow convertFlow2MySequenceFlow(Flow element) {
+    private static MySequenceFlow convertFlow2MySequenceFlow(Flow element) {
         MySequenceFlow myFlow = new MySequenceFlow(element.getSource().getId().toString(),
                 element.getTarget().getId().toString());
 

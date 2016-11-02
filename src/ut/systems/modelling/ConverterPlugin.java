@@ -1,11 +1,13 @@
 package ut.systems.modelling;
 
+import org.jbpt.pm.bpmn.Bpmn;
 import org.processmining.contexts.uitopia.UIPluginContext;
 import org.processmining.contexts.uitopia.annotations.UITopiaVariant;
 import org.processmining.framework.plugin.annotations.Plugin;
 import org.processmining.framework.plugin.annotations.PluginVariant;
 
 import org.processmining.models.graphbased.directed.bpmn.BPMNDiagram;
+import org.processmining.models.graphbased.directed.bpmn.BPMNDiagramImpl;
 import org.processmining.models.graphbased.directed.petrinet.Petrinet;
 import org.processmining.models.graphbased.directed.petrinet.impl.PetrinetImpl;
 
@@ -84,12 +86,33 @@ public class ConverterPlugin {
 
 
 
-
         //pn = MyConverter.getPN(myMyBPMNModel); // fill this object with data from myPNObject
 
         pn = new PetrinetImpl("myPetriNet");
         pn.addPlace("Start_place");
 
         return pn;
+    }
+
+    public static Petrinet shadow(){
+
+        //TODO copy this thing back to where it was before
+        //Do not know if there is any point here
+
+
+        //Create a test BPMNDiagram to speed up testing and development
+        BPMNDiagram diagram = new BPMNDiagramImpl("");
+        Petrinet pn = null;
+
+
+        pn = new PetrinetImpl("myPetriNet");
+        pn.addPlace("Start_place");
+
+        return pn;
+    }
+    public static void main(String args[]){
+        //Main method for testing
+        //Move these things back to optimizeDiagram later
+        shadow();
     }
 }
