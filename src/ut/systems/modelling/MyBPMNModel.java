@@ -21,6 +21,8 @@ public class MyBPMNModel {
 
     private Collection<MyEvent> myEvents;
 
+    private Collection<MyTask> myTasks;
+
 
 
 
@@ -62,4 +64,9 @@ public class MyBPMNModel {
     public void setMyEvents(Collection<MyEvent> myEvents) {
         this.myEvents = myEvents;
     }
+
+    public void setMyTasks(Collection<MyTask> myTasks) {
+        this.myTasks = myTasks;
+    }
+
 }

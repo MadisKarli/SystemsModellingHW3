@@ -24,21 +24,13 @@ public class MyParser {
 
         //going step by step here and adding stuff to the myBPMNModel thing
 
-        //myMyBPMNModel.setNodes(getMyNodes(diagram)); //does not work
-
-        //myMyBPMNModel.setNodes(diagram.getNodes());
-        //myMyBPMNModel.setMyTasks(getMyTasks(diagram));
-
-
         myBPMNModel.setMySequenceFlows(getMySequenceFlows(diagram));
         myBPMNModel.setMyCompoundTasks(getMyCompundTasks(diagram));
         myBPMNModel.setMyGateways(getMyGateways(diagram));
         myBPMNModel.setMyEvents(getMyEvents(diagram));
+        myBPMNModel.setMyTasks(getMyTasks(diagram));
+        myBPMNModel.setNodes(getMyNodes(diagram));
 
-
-
-
-        //Collection<Flow> flows = diagram.getFlows();
         return myBPMNModel;
     }
 
@@ -187,9 +179,7 @@ public class MyParser {
     }
 
     private static MyEvent convertEvent2MyEvent(Event element) {
-
         MyEvent myEvent = new MyEvent(element.getId().toString());
-
         return myEvent;
     }
 
