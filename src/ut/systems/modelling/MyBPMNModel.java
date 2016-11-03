@@ -17,6 +17,8 @@ public class MyBPMNModel {
 
     private Collection<MyCompoundTask> myCompoundTasks;
 
+    private Collection<MyGateway> myGateways;
+
 
 
 
@@ -41,9 +43,9 @@ public class MyBPMNModel {
         this.sequenceFlows = sequenceFlows;
     }
 
-    public void setMyCompoundTasks(Collection<MyCompoundTask> myCompundTasks) {
-        this.myCompoundTasks = myCompundTasks;
-    }
+    public void setMyCompoundTasks(Collection<MyCompoundTask> myCompundTasks) { this.myCompoundTasks = myCompundTasks; }
+
+    public void setMyGateways(Collection<MyGateway> myGateways) { this.myGateways = myGateways; }
 
     //getters
     public Set<MyBPMNNode> getNodes() {
@@ -54,6 +56,7 @@ public class MyBPMNModel {
     public Collection<MySequenceFlow> getSequenceFlows() {
         return sequenceFlows;
     }
+
 
 
 }

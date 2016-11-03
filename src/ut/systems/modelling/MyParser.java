@@ -5,6 +5,7 @@ import org.processmining.models.graphbased.directed.bpmn.*;
 import org.processmining.models.graphbased.directed.bpmn.BPMNNode;
 import org.processmining.models.graphbased.directed.bpmn.elements.Activity;
 import org.processmining.models.graphbased.directed.bpmn.elements.Flow;
+import org.processmining.models.graphbased.directed.bpmn.elements.Gateway;
 import org.processmining.models.graphbased.directed.bpmn.elements.SubProcess;
 import org.processmining.plugins.bpmn.BpmnFlow;
 
@@ -22,7 +23,7 @@ public class MyParser {
 
     protected static MyBPMNModel getMyBPMNModel(BPMNDiagram diagram){
 
-        MyBPMNModel myMyBPMNModel = new MyBPMNModel();
+        MyBPMNModel myBPMNModel = new MyBPMNModel();
 
         //going step by step here and adding stuff to the myBPMNModel thing
 
@@ -31,14 +32,16 @@ public class MyParser {
         //myMyBPMNModel.setNodes(diagram.getNodes());
         //myMyBPMNModel.setMyTasks(getMyTasks(diagram));
 
-        
-        myMyBPMNModel.setMySequenceFlows(getMySequenceFlows(diagram));
-        myMyBPMNModel.setMyCompoundTasks(getMyCompundTasks(diagram));
+
+        myBPMNModel.setMySequenceFlows(getMySequenceFlows(diagram));
+        myBPMNModel.setMyCompoundTasks(getMyCompundTasks(diagram));
+        myBPMNModel.setMyGateways(getMyGateways(diagram));
+
 
 
 
         //Collection<Flow> flows = diagram.getFlows();
-        return myMyBPMNModel;
+        return myBPMNModel;
     }
 
     /////////////////////////////////// NODE STUFF /////////////////////////////////////////////////
@@ -154,6 +157,22 @@ public class MyParser {
         return myBPMNNode;
     }
 
+////////////////////////////////// MYGATEWAY STUFF ////////////////////////////////////////////
+
+    private static Collection<MyGateway> getMyGateways(BPMNDiagram diagram){
+        Collection<Gateway> gateways = diagram.getGateways();
+        Collection<MyGateway> myGateways = new ArrayList<MyGateway>();
+
+        for (Gateway element : gateways){
+            myGateways.add(convertGateway2MyGateway(element));
+        }
+        return myGateways;
+    }
+
+    private static MyGateway convertGateway2MyGateway(Gateway element) {
+        MyGateway myGateway = new MyGateway(element.getId().toString(), element.toString());
+        return myGateway;
+    }
 
 
 
