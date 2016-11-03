@@ -3,10 +3,7 @@ package ut.systems.modelling;
 import org.processmining.models.graphbased.directed.ContainableDirectedGraphElement;
 import org.processmining.models.graphbased.directed.bpmn.*;
 import org.processmining.models.graphbased.directed.bpmn.BPMNNode;
-import org.processmining.models.graphbased.directed.bpmn.elements.Activity;
-import org.processmining.models.graphbased.directed.bpmn.elements.Flow;
-import org.processmining.models.graphbased.directed.bpmn.elements.Gateway;
-import org.processmining.models.graphbased.directed.bpmn.elements.SubProcess;
+import org.processmining.models.graphbased.directed.bpmn.elements.*;
 import org.processmining.plugins.bpmn.BpmnFlow;
 
 import java.util.*;
@@ -36,6 +33,7 @@ public class MyParser {
         myBPMNModel.setMySequenceFlows(getMySequenceFlows(diagram));
         myBPMNModel.setMyCompoundTasks(getMyCompundTasks(diagram));
         myBPMNModel.setMyGateways(getMyGateways(diagram));
+        myBPMNModel.setMyEvents(getMyEvents(diagram));
 
 
 
@@ -173,6 +171,30 @@ public class MyParser {
         MyGateway myGateway = new MyGateway(element.getId().toString(), element.toString());
         return myGateway;
     }
+
+
+////////////////////////// MYEVENT STUFF //////////////////////////////////////////////////////
+
+
+    private static Collection<MyEvent> getMyEvents(BPMNDiagram diagram){
+        Collection<Event> events = diagram.getEvents();
+        Collection<MyEvent> myEvents = new ArrayList<MyEvent>();
+
+        for (Event element : events){
+            myEvents.add(convertEvent2MyEvent(element));
+        }
+        return myEvents;
+    }
+
+    private static MyEvent convertEvent2MyEvent(Event element) {
+
+        MyEvent myEvent = new MyEvent(element.getId().toString());
+
+        return myEvent;
+    }
+
+
+
 
 
 

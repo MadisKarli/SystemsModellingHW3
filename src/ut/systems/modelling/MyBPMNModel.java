@@ -19,6 +19,7 @@ public class MyBPMNModel {
 
     private Collection<MyGateway> myGateways;
 
+    private Collection<MyEvent> myEvents;
 
 
 
@@ -58,5 +59,7 @@ public class MyBPMNModel {
     }
 
 
-
+    public void setMyEvents(Collection<MyEvent> myEvents) {
+        this.myEvents = myEvents;
+    }
 }
