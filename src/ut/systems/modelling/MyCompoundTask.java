@@ -1,34 +1,22 @@
 package ut.systems.modelling;
 
-import org.processmining.models.graphbased.directed.bpmn.elements.Activity;
-
 import java.util.Collection;
 import java.util.Set;
 
 /**
  * Created by Joonas Papoonas on 26/10/2016.
  */
-public class MyBPMNModel {
+public class MyCompoundTask {
 
     // holding all the nodes, just like in our application model from HW2
     private Set<MyBPMNNode> nodes;
     // mySequenceFlows
     private Collection<MySequenceFlow> sequenceFlows;
 
-    private Collection<MyCompoundTask> myCompoundTasks;
-
-
-
-
 
     //constructor
-    public MyBPMNModel() {
+    public MyCompoundTask() {
     }
-
-
-
-
-
 
 
     //setters
@@ -36,24 +24,18 @@ public class MyBPMNModel {
         this.nodes = nodes;
     }
 
-
     public void setMySequenceFlows(Collection<MySequenceFlow> sequenceFlows) {
         this.sequenceFlows = sequenceFlows;
     }
 
-    public void setMyCompoundTasks(Collection<MyCompoundTask> myCompundTasks) {
-        this.myCompoundTasks = myCompundTasks;
-    }
 
     //getters
     public Set<MyBPMNNode> getNodes() {
         return nodes;
     }
 
-
     public Collection<MySequenceFlow> getSequenceFlows() {
         return sequenceFlows;
     }
-
 
 }

@@ -1,18 +1,20 @@
 package ut.systems.modelling;
 
+import org.processmining.models.graphbased.directed.ContainableDirectedGraphElement;
 import org.processmining.models.graphbased.directed.bpmn.*;
 import org.processmining.models.graphbased.directed.bpmn.BPMNNode;
+import org.processmining.models.graphbased.directed.bpmn.elements.Activity;
 import org.processmining.models.graphbased.directed.bpmn.elements.Flow;
+import org.processmining.models.graphbased.directed.bpmn.elements.SubProcess;
 import org.processmining.plugins.bpmn.BpmnFlow;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+
 
 /**
  * Created by Philosoraptor on 31/10/2016.
  */
+
 public class MyParser {
 
 
@@ -23,24 +25,21 @@ public class MyParser {
         MyBPMNModel myMyBPMNModel = new MyBPMNModel();
 
         //going step by step here and adding stuff to the myBPMNModel thing
-        myMyBPMNModel.setMySequenceFlows(getMySequenceFlows(diagram));
-        //myMyBPMNModel.setNodes(getMyNodes(diagram));
+
+        //myMyBPMNModel.setNodes(getMyNodes(diagram)); //does not work
 
         //myMyBPMNModel.setNodes(diagram.getNodes());
-        //myMyBPMNModel.setMyTasks(diagram.getActivities());
-        //myMyBPMNModel.setMySequenceFlows(diagram.getFlows());
-        //myMyBPMNModel.setSubProcesses(diagram.getSubProcesses());
+        //myMyBPMNModel.setMyTasks(getMyTasks(diagram));
+
+        
+        myMyBPMNModel.setMySequenceFlows(getMySequenceFlows(diagram));
+        myMyBPMNModel.setMyCompoundTasks(getMyCompundTasks(diagram));
 
 
 
-        Collection<Flow> flows = diagram.getFlows();
+        //Collection<Flow> flows = diagram.getFlows();
         return myMyBPMNModel;
     }
-
-
-
-
-    //TODO: ADD OTHER CONVERTERS HERE
 
     /////////////////////////////////// NODE STUFF /////////////////////////////////////////////////
     //converts BPMNDiagram nodes into our Node format
@@ -50,7 +49,7 @@ public class MyParser {
 
         for ( BPMNNode element : nodes) {
             MyBPMNNode myNode = convertBPMNNode2MyBPMNNode(element);
-            myNodes.add(myNode);
+            myNodes.add(myNode); // fucken fails here. np exception
             //element.getLabel();
             //System.out.println(element.toString());
         }
@@ -63,12 +62,9 @@ public class MyParser {
     //  nodes create tasks-events-gateways. Make node abstract and make others extend MyNode or some shit
     //Also how gotta look into how to extract if BPMNNode is a task, event or a gateway
     //  since there is no 'getTasks' method for BPMNNode imo
-
-
     // the BPMNDiagram node has some weird parameters, check later what is useful and what is not
     private static MyBPMNNode convertBPMNNode2MyBPMNNode(BPMNNode node){
         MyBPMNNode myNode = new MyBPMNNode(node.getId().toString());
-
         return myNode;
     }
 
@@ -93,7 +89,75 @@ public class MyParser {
     private static MySequenceFlow convertFlow2MySequenceFlow(Flow element) {
         MySequenceFlow myFlow = new MySequenceFlow(element.getSource().getId().toString(),
                 element.getTarget().getId().toString());
-
         return myFlow;
     }
+
+
+
+
+/////////////////////// TASKS STUFF     ///////////////////////////////////////////////////
+
+
+    private static Collection<MyTask> getMyTasks(BPMNDiagram diagram){
+        Collection<Activity> activities = diagram.getActivities();
+        Collection<MyTask> myTasks = new ArrayList<MyTask>();
+
+        for (Activity element : activities){
+            myTasks.add(convertActivity2MyTask(element));
+            System.out.println(element.toString());
+        }
+        return myTasks;
+    }
+
+    private static MyTask convertActivity2MyTask(Activity element) {
+        MyTask myTask = new MyTask(element.getId().toString());
+        return myTask;
+    }
+
+
+/////////////////////////// COMPOUNDTASK STUFF //////////////////////////////////////////
+
+    private static Collection<MyCompoundTask> getMyCompundTasks(BPMNDiagram diagram){
+        Collection<SubProcess> subProcesses = diagram.getSubProcesses();
+        Collection<MyCompoundTask> myCompoundTasks = new ArrayList<MyCompoundTask>();
+
+        for (SubProcess element : subProcesses){
+            myCompoundTasks.add(convertSubProcess2MyCompoundTask(element, diagram));
+            System.out.println(element.toString());
+        }
+        return myCompoundTasks;
+    }
+
+    private static MyCompoundTask convertSubProcess2MyCompoundTask(SubProcess element, BPMNDiagram diagram) {
+        Set<ContainableDirectedGraphElement> nodes = element.getChildren();
+        Collection<Flow> flows = diagram.getFlows(element);
+        MyCompoundTask myCompoundTask = new MyCompoundTask();
+        Set<MyBPMNNode> myNodes = new HashSet<MyBPMNNode>();
+        Collection<MySequenceFlow> myFlows = new ArrayList<MySequenceFlow>();
+
+        myCompoundTask.setNodes(myNodes);
+        myCompoundTask.setMySequenceFlows(myFlows);
+
+        for (ContainableDirectedGraphElement node : nodes){
+            myNodes.add(convertSubNode2MyBPMNNode(node));
+        }
+
+        for (Flow flow : flows){
+            myFlows.add(convertFlow2MySequenceFlow(flow));
+        }
+        return myCompoundTask;
+    }
+
+
+    private static MyBPMNNode convertSubNode2MyBPMNNode(ContainableDirectedGraphElement node) {
+        MyBPMNNode myBPMNNode = new MyBPMNNode(node.toString());
+        return myBPMNNode;
+    }
+
+
+
+
+
+
+
 }
