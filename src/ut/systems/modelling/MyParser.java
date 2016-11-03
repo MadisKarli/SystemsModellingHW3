@@ -5,7 +5,9 @@ import org.processmining.models.graphbased.directed.bpmn.BPMNNode;
 import org.processmining.models.graphbased.directed.bpmn.elements.Flow;
 import org.processmining.plugins.bpmn.BpmnFlow;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -22,7 +24,7 @@ public class MyParser {
 
         //going step by step here and adding stuff to the myBPMNModel thing
         myMyBPMNModel.setMySequenceFlows(getMySequenceFlows(diagram));
-        myMyBPMNModel.setNodes(getMyNodes(diagram));
+        //myMyBPMNModel.setNodes(getMyNodes(diagram));
 
         //myMyBPMNModel.setNodes(diagram.getNodes());
         //myMyBPMNModel.setMyTasks(diagram.getActivities());
@@ -44,12 +46,13 @@ public class MyParser {
     //converts BPMNDiagram nodes into our Node format
     private static Set<MyBPMNNode> getMyNodes(BPMNDiagram diagram){
         Set<BPMNNode> nodes = diagram.getNodes();
-        Set<MyBPMNNode> myNodes = null;
+        Set<MyBPMNNode> myNodes = new HashSet<MyBPMNNode>();
 
         for ( BPMNNode element : nodes) {
-            myNodes.add(convertBPMNNode2MyBPMNNode(element));
-            element.getLabel();
-            System.out.println(element.toString());
+            MyBPMNNode myNode = convertBPMNNode2MyBPMNNode(element);
+            myNodes.add(myNode);
+            //element.getLabel();
+            //System.out.println(element.toString());
         }
         return myNodes;
     }
@@ -77,7 +80,7 @@ public class MyParser {
 ////////////////////////////// SEQUENCEFLOW STUFF ////////////////////////////////////////
     private static Collection<MySequenceFlow> getMySequenceFlows(BPMNDiagram diagram){
         Collection<Flow> flows = diagram.getFlows();
-        Collection<MySequenceFlow> myFlows = null;
+        Collection<MySequenceFlow> myFlows = new ArrayList<MySequenceFlow>();
 
         for (Flow element : flows){
             myFlows.add(convertFlow2MySequenceFlow(element));
