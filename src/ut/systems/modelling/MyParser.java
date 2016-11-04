@@ -73,7 +73,7 @@ public class MyParser {
 
         for (Flow element : flows){
             myFlows.add(convertFlow2MySequenceFlow(element));
-            System.out.println(element.toString());
+            //System.out.println(element.toString());
         }
         return myFlows;
     }
@@ -98,6 +98,7 @@ public class MyParser {
         for (Activity element : activities){
             myTasks.add(convertActivity2MyTask(element));
             System.out.println(element.toString());
+            //System.out.println(element.getId());
         }
         return myTasks;
     }
@@ -174,6 +175,7 @@ public class MyParser {
 
         for (Event element : events){
             myEvents.add(convertEvent2MyEvent(element));
+            System.out.println(element.getId());
         }
         return myEvents;
     }

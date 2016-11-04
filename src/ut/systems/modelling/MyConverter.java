@@ -28,7 +28,10 @@ public class MyConverter {
         myPetrinet.addTransition(myEndTransition);
 
 
-        //MyEvent myStartEvent = myBPMNModel.getStartEvent();
+        MyEvent myStartEvent = myBPMNModel.getStartEvent();
+
+
+        MyEvent myEndEvent = myBPMNModel.getEndEvent();
 
 
 

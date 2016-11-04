@@ -89,9 +89,6 @@ public class ConverterPlugin {
 
         //pn = MyConverter.getPN(myMyBPMNModel); // fill this object with data from myPNObject
 
-        pn = new PetrinetImpl("myPetriNet");
-        pn.addPlace("Start_place");
-
 
         return pn;
     }

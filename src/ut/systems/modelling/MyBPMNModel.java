@@ -1,7 +1,9 @@
 package ut.systems.modelling;
 
+import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.processmining.models.graphbased.directed.bpmn.elements.Activity;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 
@@ -22,8 +24,6 @@ public class MyBPMNModel {
     private Collection<MyEvent> myEvents;
 
     private Collection<MyTask> myTasks;
-
-
 
 
     //constructor
@@ -69,11 +69,60 @@ public class MyBPMNModel {
         this.myTasks = myTasks;
     }
 
-//    public MyEvent getStartEvent() {
-//
-//        for(MySequenceFlow mySequenceFlow: sequenceFlows){
-//
-//        }
-//        return startEvent;
-//    }
+    public boolean myEventInCompundTasks(String id){
+        boolean isPresent = false;
+        for(MyCompoundTask myCompoundTask: myCompoundTasks){
+            for (MyBPMNNode myBPMNNode: myCompoundTask.getNodes()){
+                if (myBPMNNode.getId().toString().equals(id)){
+                    isPresent = true;
+                }
+            }
+        }
+        return isPresent;
+    }
+
+    public MyEvent getStartEvent() {
+
+        for(MyEvent myEvent: myEvents) {
+            boolean myEventInTargets = false;
+
+            if (!myEventInCompundTasks(myEvent.getId())) {
+                for (MySequenceFlow mySequenceFlow : sequenceFlows) {
+
+                    if (mySequenceFlow.getTgt().toString().equals(myEvent.getId().toString())) {
+                        myEventInTargets = true;
+                    }
+                }
+
+                if (!myEventInTargets) {
+                    System.out.println("Start event is " + myEvent.getId().toString());
+                    return myEvent;
+                }
+            }
+        }
+
+        throw new ArrayIndexOutOfBoundsException("Start event not found");
+    }
+
+    public MyEvent getEndEvent() {
+
+        for(MyEvent myEvent: myEvents) {
+            boolean myEventInSources = false;
+
+            if (!myEventInCompundTasks(myEvent.getId())) {
+                for (MySequenceFlow mySequenceFlow : sequenceFlows) {
+                    if (mySequenceFlow.getSrc().toString().equals(myEvent.getId().toString())) {
+                        myEventInSources = true;
+                    }
+                }
+
+                if (!myEventInSources) {
+                    System.out.println("End event is " + myEvent.getId().toString());
+                    return myEvent;
+                }
+            }
+        }
+
+        throw new ArrayIndexOutOfBoundsException("End event not found");
+    }
 }
