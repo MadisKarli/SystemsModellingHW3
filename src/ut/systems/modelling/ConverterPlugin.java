@@ -52,7 +52,8 @@ public class ConverterPlugin {
 
 
         // did sth, maybe working
-        MyBPMNModel myMyBPMNModel = MyParser.getMyBPMNModel(diagram);
+        MyBPMNModel myBPMNModel = MyParser.getMyBPMNModel(diagram);
+        MyPetrinet myPetrinet = MyConverter.BPMNtoMyPetrinet(myBPMNModel);
 
         ///////////////TESTING //////////////////////////////////
 /*
@@ -90,6 +91,7 @@ public class ConverterPlugin {
 
         pn = new PetrinetImpl("myPetriNet");
         pn.addPlace("Start_place");
+
 
         return pn;
     }

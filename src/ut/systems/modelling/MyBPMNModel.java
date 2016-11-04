@@ -69,4 +69,11 @@ public class MyBPMNModel {
         this.myTasks = myTasks;
     }
 
+//    public MyEvent getStartEvent() {
+//
+//        for(MySequenceFlow mySequenceFlow: sequenceFlows){
+//
+//        }
+//        return startEvent;
+//    }
 }

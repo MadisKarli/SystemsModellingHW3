@@ -10,6 +10,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4cc14ff4-f1f9-4a02-ae01-7fd7bceb8069" name="Default" comment="Changed converstion methods to static to get the code to work&#10;Added conf to run only ConverterPlugin.class&#10;">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ut/systems/modelling/MyConverter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ut/systems/modelling/MyPetrinet.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ut/systems/modelling/MyPlace.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/ut/systems/modelling/MyTransition.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/ut/systems/modelling/BPMNSet.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/ut/systems/modelling/NodeSet.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/ut/systems/modelling/PetriNet.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/ut/systems/modelling/TransitionBMPNMap.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/ut/systems/modelling/TransitionMap.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/ut/systems/modelling/TransitionSet.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ut/systems/modelling/ConverterPlugin.java" afterPath="$PROJECT_DIR$/src/ut/systems/modelling/ConverterPlugin.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ut/systems/modelling/MyBPMNModel.java" afterPath="$PROJECT_DIR$/src/ut/systems/modelling/MyBPMNModel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ut/systems/modelling/MyParser.java" afterPath="$PROJECT_DIR$/src/ut/systems/modelling/MyParser.java" />
     </list>
@@ -32,11 +44,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ConverterPlugin.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ConverterPlugin.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/ConverterPlugin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-352">
-              <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+            <state relative-caret-position="544">
+              <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -44,12 +56,60 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PluginDescriptorImpl.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/stdlib/ProM-Framework.jar!/org/processmining/framework/plugin/impl/PluginDescriptorImpl.class">
+      <file leaf-file-name="MyConverter.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MyConverter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="224" column="0" selection-start-line="224" selection-start-column="0" selection-end-line="224" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="306">
+              <caret line="30" column="10" selection-start-line="30" selection-start-column="10" selection-end-line="30" selection-end-column="10" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MyPetrinet.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MyPetrinet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#577#578#0" expanded="true" />
+                <element signature="e#614#615#0" expanded="true" />
+                <element signature="e#674#675#0" expanded="true" />
+                <element signature="e#721#722#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MyPlace.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MyPlace.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" column="39" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="39" />
+              <folding>
+                <element signature="e#244#245#0" expanded="true" />
+                <element signature="e#272#273#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MyTransition.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MyTransition.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="220">
+              <caret line="14" column="34" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="34" />
+              <folding>
+                <element signature="e#242#243#0" expanded="true" />
+                <element signature="e#270#271#0" expanded="true" />
+                <element signature="e#332#333#0" expanded="true" />
+                <element signature="e#386#387#0" expanded="true" />
+                <element signature="e#448#449#0" expanded="true" />
+                <element signature="e#502#503#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -57,61 +117,11 @@
       <file leaf-file-name="MyParser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MyParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-33">
-              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+            <state relative-caret-position="-631">
+              <caret line="26" column="1" selection-start-line="26" selection-start-column="1" selection-end-line="33" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1374#1386#0" expanded="true" />
-                <element signature="e#2755#2771#0" expanded="true" />
-                <element signature="e#3579#3587#0" expanded="true" />
-                <element signature="e#4268#4284#0" expanded="true" />
-                <element signature="e#4877#4889#0" expanded="true" />
-                <element signature="e#4951#4967#0" expanded="true" />
-                <element signature="e#5824#5835#0" expanded="true" />
-                <element signature="e#6468#6477#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MyEvent.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MyEvent.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-              <folding>
-                <element signature="e#161#162#0" expanded="true" />
-                <element signature="e#189#190#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MyGateway.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MyGateway.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-              <folding>
-                <element signature="e#288#289#0" expanded="true" />
-                <element signature="e#315#316#0" expanded="true" />
-                <element signature="e#355#356#0" expanded="true" />
-                <element signature="e#387#388#0" expanded="true" />
-                <element signature="e#416#417#0" expanded="true" />
-                <element signature="e#441#442#0" expanded="true" />
-                <element signature="e#477#478#0" expanded="true" />
-                <element signature="e#505#506#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MyCompoundTask.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MyCompoundTask.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -119,44 +129,8 @@
       <file leaf-file-name="MyBPMNModel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MyBPMNModel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="379">
-              <caret line="68" column="31" selection-start-line="68" selection-start-column="31" selection-end-line="68" selection-end-column="31" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1367#1368#0" expanded="true" />
-                <element signature="e#1407#1408#0" expanded="true" />
-                <element signature="e#1465#1466#0" expanded="true" />
-                <element signature="e#1503#1504#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MySequenceFlow.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MySequenceFlow.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AbstractPluginDescriptor.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/stdlib/ProM-Framework.jar!/org/processmining/framework/plugin/impl/AbstractPluginDescriptor.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ProMFuture.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/stdlib/ProM-Framework.jar!/org/processmining/framework/plugin/ProMFuture.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-51">
-              <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+            <state relative-caret-position="203">
+              <caret line="71" column="0" selection-start-line="71" selection-start-column="2" selection-end-line="77" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -185,7 +159,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/build.xml" />
         <option value="$PROJECT_DIR$/src/au/edu/qut/plugins/structuring/StructuringService.java" />
         <option value="$PROJECT_DIR$/src/au/edu/qut/plugins/structuring/ui/iBPStructSettings.java" />
         <option value="$PROJECT_DIR$/packagelib/Log.jar!/org/processmining/log/utils/XUtils.class" />
@@ -226,21 +199,25 @@
         <option value="$PROJECT_DIR$/src/ut/systems/modelling/myParser.java" />
         <option value="$PROJECT_DIR$/src/ut/systems/modelling/MySequenceFlow.java" />
         <option value="$PROJECT_DIR$/src/ut/systems/modelling/MyBPMNNode.java" />
-        <option value="$PROJECT_DIR$/src/ut/systems/modelling/ConverterPlugin.java" />
         <option value="$PROJECT_DIR$/src/ut/systems/modelling/MyTask.java" />
         <option value="$PROJECT_DIR$/src/ut/systems/modelling/MyCompoundTask.java" />
         <option value="$PROJECT_DIR$/src/ut/systems/modelling/MyGateway.java" />
         <option value="$PROJECT_DIR$/src/ut/systems/modelling/MyEvent.java" />
-        <option value="$PROJECT_DIR$/src/ut/systems/modelling/MyBPMNModel.java" />
         <option value="$PROJECT_DIR$/src/ut/systems/modelling/MyParser.java" />
+        <option value="$PROJECT_DIR$/src/ut/systems/modelling/ConverterPlugin.java" />
+        <option value="$PROJECT_DIR$/src/ut/systems/modelling/MyPlace.java" />
+        <option value="$PROJECT_DIR$/src/ut/systems/modelling/MyPetrinet.java" />
+        <option value="$PROJECT_DIR$/src/ut/systems/modelling/MyTransition.java" />
+        <option value="$PROJECT_DIR$/src/ut/systems/modelling/MyBPMNModel.java" />
+        <option value="$PROJECT_DIR$/src/ut/systems/modelling/MyConverter.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="width" value="1616" />
+    <option name="height" value="876" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -249,7 +226,7 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="2" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectView">
@@ -267,12 +244,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane">
-        <subPane />
-      </pane>
       <pane id="PackagesPane">
         <subPane />
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope">
         <subPane subId="Project Files">
           <PATH>
@@ -290,7 +265,7 @@
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="SystemsModellingHw3">
+            <PATH_ELEMENT USER_OBJECT="ProM">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
@@ -304,7 +279,7 @@
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="SystemsModellingHw3">
+            <PATH_ELEMENT USER_OBJECT="ProM">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
@@ -319,7 +294,9 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane />
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -335,6 +312,9 @@
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="ut.systems.modelling" />
       <recent name="au.edu.qut.metrics" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="ut.systems.modelling" />
     </key>
   </component>
   <component name="RunManager" selected="Application.ProM">
@@ -628,7 +608,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -638,16 +618,16 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3742072" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37336814" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32898173" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32875264" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13072917" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39852008" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39817232" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -656,6 +636,32 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32870865" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32898173" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3245243" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37336814" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32898173" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32875264" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32870865" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39817232" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -692,8 +698,14 @@
           <properties />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/ut/systems/modelling/MyConverter.java</url>
+          <line>39</line>
+          <properties />
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="17" />
+      <option name="time" value="19" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
@@ -706,10 +718,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/au/edu/qut/util/ImportEventLog.java" />
-    <entry file="file://$PROJECT_DIR$/src/au/edu/qut/plugins/structuring/iBPStruct.java" />
-    <entry file="file://$PROJECT_DIR$/src/au/edu/qut/noisefiltering/InfoExtractor.java" />
-    <entry file="file://$PROJECT_DIR$/src/au/edu/qut/structuring/core/Structurer.java" />
     <entry file="file://$PROJECT_DIR$/src/au/edu/qut/structuring/core/StructuringCore.java" />
     <entry file="file://$PROJECT_DIR$/src/au/edu/qut/structuring/core/StructuringState.java" />
     <entry file="file://$PROJECT_DIR$/src/au/edu/qut/structuring/graph/Graph.java" />
@@ -728,13 +736,6 @@
     <entry file="file://$PROJECT_DIR$/src/au/edu/qut/structuring/StructuringService.java" />
     <entry file="file://$PROJECT_DIR$/src/ut/system/modellings/ConverterPlugin.java" />
     <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/TransitionMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/PetriNet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
@@ -834,16 +835,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MyBPMNNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding>
-            <element signature="e#230#231#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/stdlib/ProM-Contexts.jar!/org/processmining/contexts/uitopia/UI.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="850">
@@ -855,14 +846,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MyCompoundTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -886,40 +869,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MyGateway.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding>
-            <element signature="e#288#289#0" expanded="true" />
-            <element signature="e#315#316#0" expanded="true" />
-            <element signature="e#355#356#0" expanded="true" />
-            <element signature="e#387#388#0" expanded="true" />
-            <element signature="e#416#417#0" expanded="true" />
-            <element signature="e#441#442#0" expanded="true" />
-            <element signature="e#477#478#0" expanded="true" />
-            <element signature="e#505#506#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MyBPMNModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="68" column="31" selection-start-line="68" selection-start-column="31" selection-end-line="68" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1367#1368#0" expanded="true" />
-            <element signature="e#1407#1408#0" expanded="true" />
-            <element signature="e#1465#1466#0" expanded="true" />
-            <element signature="e#1503#1504#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/stdlib/ProM-Framework.jar!/org/processmining/framework/plugin/impl/PluginDescriptorImpl.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
+        <state relative-caret-position="3196">
           <caret line="224" column="0" selection-start-line="224" selection-start-column="0" selection-end-line="224" selection-end-column="0" />
           <folding />
         </state>
@@ -927,7 +879,7 @@
     </entry>
     <entry file="jar://$PROJECT_DIR$/stdlib/ProM-Framework.jar!/org/processmining/framework/plugin/impl/AbstractPluginDescriptor.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
+        <state relative-caret-position="1853">
           <caret line="128" column="0" selection-start-line="128" selection-start-column="0" selection-end-line="128" selection-end-column="0" />
           <folding />
         </state>
@@ -935,34 +887,116 @@
     </entry>
     <entry file="jar://$PROJECT_DIR$/stdlib/ProM-Framework.jar!/org/processmining/framework/plugin/ProMFuture.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-51">
+        <state relative-caret-position="357">
           <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/PetriNet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MyGateway.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MyBPMNNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="27" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MyCompoundTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MyParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-33">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+        <state relative-caret-position="-631">
+          <caret line="26" column="1" selection-start-line="26" selection-start-column="1" selection-end-line="33" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1374#1386#0" expanded="true" />
-            <element signature="e#2755#2771#0" expanded="true" />
-            <element signature="e#3579#3587#0" expanded="true" />
-            <element signature="e#4268#4284#0" expanded="true" />
-            <element signature="e#4877#4889#0" expanded="true" />
-            <element signature="e#4951#4967#0" expanded="true" />
-            <element signature="e#5824#5835#0" expanded="true" />
-            <element signature="e#6468#6477#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MyPlace.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="39" selection-start-line="16" selection-start-column="16" selection-end-line="16" selection-end-column="39" />
+          <folding>
+            <element signature="e#244#245#0" expanded="true" />
+            <element signature="e#272#273#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MyPetrinet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="17" column="25" selection-start-line="17" selection-start-column="25" selection-end-line="17" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#577#578#0" expanded="true" />
+            <element signature="e#614#615#0" expanded="true" />
+            <element signature="e#674#675#0" expanded="true" />
+            <element signature="e#721#722#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MyTransition.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="14" column="34" selection-start-line="14" selection-start-column="16" selection-end-line="14" selection-end-column="34" />
+          <folding>
+            <element signature="e#242#243#0" expanded="true" />
+            <element signature="e#270#271#0" expanded="true" />
+            <element signature="e#332#333#0" expanded="true" />
+            <element signature="e#386#387#0" expanded="true" />
+            <element signature="e#448#449#0" expanded="true" />
+            <element signature="e#502#503#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/ConverterPlugin.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-352">
-          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+        <state relative-caret-position="544">
+          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MyBPMNModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="71" column="0" selection-start-line="71" selection-start-column="2" selection-end-line="77" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ut/systems/modelling/MyConverter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="30" column="10" selection-start-line="30" selection-start-column="10" selection-end-line="30" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
