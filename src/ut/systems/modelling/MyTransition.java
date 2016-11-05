@@ -1,22 +1,30 @@
 package ut.systems.modelling;
 
+import java.util.ArrayList;
+
 /**
  * Created by Joonas Papoonas on 4/11/2016.
  */
 public class MyTransition {
     private String id;
-    private String incomingMyPlace;
-    private String outgoingMyPlace;
+    private ArrayList<MyPlace> incomingMyPlace;
+    private ArrayList<MyPlace> outgoingMyPlace;
 
     public MyTransition(String id) {
+        incomingMyPlace = new ArrayList<>();
+        outgoingMyPlace = new ArrayList<>();
         this.id = id;
     }
 
-    public void setIncomingMyPlace(String incomingMyPlace) {
-        this.incomingMyPlace = incomingMyPlace;
+    public void setIncomingMyPlace(MyPlace incomingMyPlace) {
+        this.incomingMyPlace.add(incomingMyPlace);
     }
 
-    public void setOutgoingMyPlace(String outgoingMyPlace) {
-        this.outgoingMyPlace = outgoingMyPlace;
+    public void setOutgoingMyPlace(MyPlace outgoingMyPlace) {
+        this.outgoingMyPlace.add(outgoingMyPlace);
     }
+
+    public ArrayList<MyPlace> getIncomingPlaces() {return incomingMyPlace;}
+
+    public ArrayList<MyPlace> getOutgoingPlaces() { return outgoingMyPlace;}
 }

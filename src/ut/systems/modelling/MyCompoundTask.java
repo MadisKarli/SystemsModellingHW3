@@ -6,7 +6,7 @@ import java.util.Set;
 /**
  * Created by Joonas Papoonas on 26/10/2016.
  */
-public class MyCompoundTask {
+public class MyCompoundTask extends MyTask {
 
     // holding all the nodes, just like in our application model from HW2
     private Set<MyBPMNNode> nodes;
@@ -16,6 +16,16 @@ public class MyCompoundTask {
 
     //constructor
     public MyCompoundTask() {
+        super("");
+    }
+
+
+    public MyBPMNModel convertToMyBPMNModel(){
+        MyBPMNModel myBPMNModel = new MyBPMNModel();
+        myBPMNModel.setNodes(nodes);
+        myBPMNModel.setMySequenceFlows(sequenceFlows);
+
+        return myBPMNModel;
     }
 
 

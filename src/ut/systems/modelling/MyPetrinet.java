@@ -2,6 +2,7 @@ package ut.systems.modelling;
 
 import org.processmining.models.graphbased.directed.petrinet.Petrinet;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -28,5 +29,51 @@ public class MyPetrinet{
 
     public void addTransition(MyTransition myTransition) {
         myTransitions.add(myTransition);
+    }
+
+    public void addArcT2P(MyTransition myTransition, MyPlace myPlace){
+        myTransition.setOutgoingMyPlace(myPlace);
+        myPlace.setIncomingMyTransition(myTransition);
+    }
+
+    public void addArcP2T(MyTransition myTransition, MyPlace myPlace) {
+        myTransition.setIncomingMyPlace(myPlace);
+        myPlace.setOutgoingMyTransition(myTransition);
+    }
+
+    public void removeArcT2P(MyTransition myTransition, MyPlace outgoingPlace) {
+        myTransition.setOutgoingMyPlace(null);
+        outgoingPlace.setIncomingMyTransition(null);
+    }
+
+    public void removeTransition(MyTransition subProcessTransition) {
+        myTransitions.remove(subProcessTransition);
+    }
+
+    public MyPlace getStartPlace(){
+        for(MyPlace myPlace: myPlaces){
+            if(myPlace.getIncomingTransition() == null){
+                return myPlace;
+            }
+        }
+        throw new ArrayIndexOutOfBoundsException("Petrinet has no start place");
+    }
+
+    public MyPlace getEndPlace(){
+        for(MyPlace myPlace: myPlaces){
+            if(myPlace.getOutgoingTransition() == null){
+                return myPlace;
+            }
+        }
+        throw new ArrayIndexOutOfBoundsException("Petrinet has no end place");
+    }
+
+
+    public Collection<MyTransition> getMyTransitions() {
+        return myTransitions;
+    }
+
+    public Collection<MyPlace> getMyPlaces() {
+        return myPlaces;
     }
 }
