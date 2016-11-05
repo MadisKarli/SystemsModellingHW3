@@ -23,13 +23,13 @@ public class MyParser {
         MyBPMNModel myBPMNModel = new MyBPMNModel();
 
         //going step by step here and adding stuff to the myBPMNModel thing
-
+        myBPMNModel.setNodes(getMyNodes(diagram));
         myBPMNModel.setMySequenceFlows(getMySequenceFlows(diagram));
         myBPMNModel.setMyCompoundTasks(getMyCompundTasks(diagram));
         myBPMNModel.setMyGateways(getMyGateways(diagram));
         myBPMNModel.setMyEvents(getMyEvents(diagram));
         myBPMNModel.setMyTasks(getMyTasks(diagram));
-        myBPMNModel.setNodes(getMyNodes(diagram));
+
 
         return myBPMNModel;
     }
@@ -72,16 +72,22 @@ public class MyParser {
         Collection<MySequenceFlow> myFlows = new ArrayList<MySequenceFlow>();
 
         for (Flow element : flows){
-            myFlows.add(convertFlow2MySequenceFlow(element));
+            myFlows.add(convertFlow2MySequenceFlow(element, diagram));
             //System.out.println(element.toString());
         }
         return myFlows;
     }
 
     //just inserting target id and source id to the sequenceflow object
-    private static MySequenceFlow convertFlow2MySequenceFlow(Flow element) {
-        MySequenceFlow myFlow = new MySequenceFlow(element.getSource().getId().toString(),
-                element.getTarget().getId().toString());
+    private static MySequenceFlow convertFlow2MySequenceFlow(Flow element, BPMNDiagram diagram) {
+        MyBPMNModel myBPMNModelTemp = new MyBPMNModel();
+        myBPMNModelTemp.setNodes(getMyNodes(diagram));
+
+        MyBPMNNode srcNode = myBPMNModelTemp.getMyBPMNNode(element.getSource().getId().toString());
+        MyBPMNNode tgtNode = myBPMNModelTemp.getMyBPMNNode(element.getTarget().getId().toString());
+
+
+        MySequenceFlow myFlow = new MySequenceFlow(srcNode, tgtNode);
         return myFlow;
     }
 
@@ -137,7 +143,7 @@ public class MyParser {
         }
 
         for (Flow flow : flows){
-            myFlows.add(convertFlow2MySequenceFlow(flow));
+            myFlows.add(convertFlow2MySequenceFlow(flow, diagram));
         }
         return myCompoundTask;
     }

@@ -7,28 +7,28 @@ package ut.systems.modelling;
 
 public class MySequenceFlow{
 
-    private String src;
-    private String tgt;
+    private MyBPMNNode src;
+    private MyBPMNNode tgt;
 
 
-    public MySequenceFlow(String src, String tgt) {
+    public MySequenceFlow(MyBPMNNode src, MyBPMNNode tgt) {
         this.src = src;
         this.tgt = tgt;
     }
 
-    public String getSrc() {
+    public MyBPMNNode getSrc() {
         return src;
     }
 
-    public String getTgt() {
+    public MyBPMNNode getTgt() {
         return tgt;
     }
 
-    public void setSrc(String src) {
+    public void setSrc(MyBPMNNode src) {
         this.src = src;
     }
 
-    public void setTgt(String tgt) {
+    public void setTgt(MyBPMNNode tgt) {
         this.tgt = tgt;
     }
 }

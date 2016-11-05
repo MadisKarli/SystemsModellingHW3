@@ -3,6 +3,7 @@ package ut.systems.modelling;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.processmining.models.graphbased.directed.bpmn.elements.Activity;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
@@ -69,6 +70,15 @@ public class MyBPMNModel {
         this.myTasks = myTasks;
     }
 
+    public MyBPMNNode getMyBPMNNode(String id){
+        for(MyBPMNNode myBPMNNode : nodes){
+            if (myBPMNNode.getId().equals(id)){
+                return myBPMNNode;
+            }
+        }
+        throw new ArrayIndexOutOfBoundsException("No node with that id found");
+    }
+
     public boolean myEventInCompundTasks(String id){
         boolean isPresent = false;
         for(MyCompoundTask myCompoundTask: myCompoundTasks){
@@ -124,5 +134,25 @@ public class MyBPMNModel {
         }
 
         throw new ArrayIndexOutOfBoundsException("End event not found");
+    }
+
+    public MyCompoundTask isKindOfCompound(MyBPMNNode mySequenceFlowSource) {
+        for(MyCompoundTask myCompoundTask : myCompoundTasks){
+            for(MyBPMNNode myBPMNNode : myCompoundTask.getNodes()){
+                if(myBPMNNode.getId().equals(mySequenceFlowSource.getId())){
+                    return myCompoundTask;
+                }
+            }
+        }
+        return null;
+    }
+
+    public MyGateway isKindOfGateway(MyBPMNNode mySequenceFlowSource){
+        for(MyGateway myGateway : myGateways){
+                if(myGateway.getId().equals(mySequenceFlowSource.getId())){
+                    return myGateway;
+                }
+            }
+        return null;
     }
 }

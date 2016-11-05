@@ -4,11 +4,12 @@ package ut.systems.modelling;
  * @(#) MyBPMNNode.java
  */
 
-public class MyTask {
+public class MyTask extends MyBPMNNode {
 
     private String id;
 
     public MyTask(String id) {
+        super(id);
         this.id = id;
     }
 
