@@ -37,9 +37,34 @@ public class MyParser {
         for(MyPlace myPlace : myPlaces){
             
             MyTransition outTransition = myPlace.getOutgoingTransition();
-            // this loop is for arcs going from place to transition
+            MyTransition inTransition = myPlace.getIncomingTransition();
+            ArrayList<MyPlace> myIncomingPlaces = new ArrayList<>();
+            ArrayList<MyPlace> myOutgoingPlaces = new ArrayList<>();
+
             try{
-                for(MyPlace myIncomingPlace: outTransition.getIncomingPlaces()){
+                myIncomingPlaces = outTransition.getIncomingPlaces();
+            }catch(NullPointerException e){
+                System.out.println(outTransition + " does not have any incoming places");
+            }
+
+
+            try{
+                myOutgoingPlaces = inTransition.getOutgoingPlaces();
+            }catch(NullPointerException e){
+                System.out.println(outTransition + " does not have any outgoing places");
+            }
+
+            if (myOutgoingPlaces.size() > 0 && myIncomingPlaces.size() > 0){
+                //TODO not sure if it works
+                for(MyPlace myOutgoingPlace: myOutgoingPlaces) {
+                    Place tgtPlace = new Place(myOutgoingPlace.getId(), outputPetrinet);
+
+                    if (!outputPetrinet.getPlaces().contains(tgtPlace)) {
+                        outputPetrinet.addArc(outputPetrinet.addTransition(myPlace.getIncomingTransition().getId()),
+                                outputPetrinet.addPlace(myOutgoingPlace.getId()));
+                    }
+                }
+                for(MyPlace myIncomingPlace: myIncomingPlaces){
                     Place srcPlace = new Place(myIncomingPlace.getId(), outputPetrinet);
                     Transition tgtTransition = new Transition(myPlace.getOutgoingTransition().getId(), outputPetrinet);
                     if(!outputPetrinet.getPlaces().contains(srcPlace)){
@@ -47,9 +72,48 @@ public class MyParser {
                                 outputPetrinet.addTransition(myPlace.getOutgoingTransition().getId()));
                     }
                 }
-            }catch(NullPointerException e){
-                System.out.println(outTransition + " does not have any incoming places");
+
+            }else if (myOutgoingPlaces.size() > 0){
+                for(MyPlace myOutgoingPlace: myOutgoingPlaces){
+                Place tgtPlace = new Place(myOutgoingPlace.getId(), outputPetrinet);
+
+                    if(!outputPetrinet.getPlaces().contains(tgtPlace)){
+                        outputPetrinet.addArc(outputPetrinet.addTransition(myPlace.getIncomingTransition().getId()),
+                                outputPetrinet.addPlace(myOutgoingPlace.getId()));
+                }
             }
+            }else if (myIncomingPlaces.size() > 0){
+                for(MyPlace myIncomingPlace: myIncomingPlaces){
+                    Place srcPlace = new Place(myIncomingPlace.getId(), outputPetrinet);
+                    Transition tgtTransition = new Transition(myPlace.getOutgoingTransition().getId(), outputPetrinet);
+                    if(!outputPetrinet.getPlaces().contains(srcPlace)){
+                        outputPetrinet.addArc(outputPetrinet.addPlace(myIncomingPlace.getId()),
+                                outputPetrinet.addTransition(myPlace.getOutgoingTransition().getId()));
+                    }
+                    //Kas leiame eelmise üles
+                    for(Place p: outputPetrinet.getPlaces()){
+                        System.out.println("This is " + p.getLabel());
+                        System.out.println("Parent is " + p.getParent().getLabel());
+                    }
+                }
+            }else{
+                System.out.println(myPlace + "is a weird place without incoming or outgoing transitions");
+            }
+
+
+            //This thing actually works
+//            try{
+//                for(MyPlace myIncomingPlace: outTransition.getIncomingPlaces()){
+//                    Place srcPlace = new Place(myIncomingPlace.getId(), outputPetrinet);
+//                    Transition tgtTransition = new Transition(myPlace.getOutgoingTransition().getId(), outputPetrinet);
+//                    if(!outputPetrinet.getPlaces().contains(srcPlace)){
+//                        outputPetrinet.addArc(outputPetrinet.addPlace(myIncomingPlace.getId()),
+//                                outputPetrinet.addTransition(myPlace.getOutgoingTransition().getId()));
+//                    }
+//                }
+//            }catch(NullPointerException e){
+//                System.out.println(outTransition + " does not have any incoming places");
+//            }
 
 
 //            MyTransition inTransition = myPlace.getIncomingTransition();

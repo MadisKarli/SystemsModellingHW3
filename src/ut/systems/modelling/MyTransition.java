@@ -11,6 +11,9 @@ public class MyTransition {
     private ArrayList<MyPlace> outgoingMyPlace;
 
     public String getId() {
+        if (id == ""){
+            return "Pasal pole id'd";
+        }
         return id;
     }
 
