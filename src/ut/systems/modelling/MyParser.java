@@ -40,29 +40,24 @@ public class MyParser {
             // this loop is for arcs going from place to transition
             try{
                 for(MyPlace myIncomingPlace: outTransition.getIncomingPlaces()){
-                    Place srcPlace = new Place(myIncomingPlace.getId(), outputPetrinet);
-                    Transition tgtTransition = new Transition(myPlace.getOutgoingTransition().getId(), outputPetrinet);
-                    if(!outputPetrinet.getPlaces().contains(srcPlace)){
-                        outputPetrinet.addArc(outputPetrinet.addPlace(myIncomingPlace.getId()),
-                                outputPetrinet.addTransition(myPlace.getOutgoingTransition().getId()));
-                    }
+                    outputPetrinet.addArc(outputPetrinet.addPlace(myIncomingPlace.getId()),
+                            outputPetrinet.addTransition(myPlace.getOutgoingTransition().getId()));
                 }
             }catch(NullPointerException e){
                 System.out.println(outTransition + " does not have any incoming places");
             }
 
 
-//            MyTransition inTransition = myPlace.getIncomingTransition();
-//            // this loop is for arcs going from transition to place
-//            for(MyPlace myOutgoingPlace: inTransition.getOutgoingPlaces()){
-//                Place tgtPlace = new Place(myOutgoingPlace.getId(), outputPetrinet);
-//                Transition srcTransition = new Transition(myPlace.getIncomingTransition().getId(), outputPetrinet);
-//                // package the Arc class and send on its way
-//                if(outputPetrinet.getArc(tgtPlace, srcTransition).equals(null)){
-//                    outputPetrinet.addArc(tgtPlace, srcTransition);
-//                }
-//
-//            }
+            MyTransition inTransition = myPlace.getIncomingTransition();
+            // this loop is for arcs going from transition to place
+            try {
+                for(MyPlace myOutgoingPlace: inTransition.getOutgoingPlaces()){
+                    outputPetrinet.addArc(outputPetrinet.addPlace(myOutgoingPlace.getId()),
+                            outputPetrinet.addTransition(myPlace.getIncomingTransition().getId()));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
 
