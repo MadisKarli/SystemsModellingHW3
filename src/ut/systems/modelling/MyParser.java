@@ -33,25 +33,6 @@ public class MyParser {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //gotta do this after inserting places
         for(MyPlace myPlace : myPlaces){
             
@@ -83,11 +64,6 @@ public class MyParser {
 //
 //            }
         }
-
-
-
-
-
 
 
         return outputPetrinet;

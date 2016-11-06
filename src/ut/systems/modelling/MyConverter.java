@@ -192,13 +192,7 @@ public class MyConverter {
             for(MyPlace myPlace: subPetrinet.getMyPlaces()){
                 myOutputPN.addPlace(myPlace);
             }
-
-
         }
-        
-
-
-
         return myOutputPN;
     }
 }
