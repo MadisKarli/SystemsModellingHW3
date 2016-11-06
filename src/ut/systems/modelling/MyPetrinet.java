@@ -76,4 +76,8 @@ public class MyPetrinet{
     public Collection<MyPlace> getMyPlaces() {
         return myPlaces;
     }
+
+    public String getLabel() {
+        return label;
+    }
 }

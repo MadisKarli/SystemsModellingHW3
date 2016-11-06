@@ -4,6 +4,11 @@ import org.processmining.models.graphbased.directed.ContainableDirectedGraphElem
 import org.processmining.models.graphbased.directed.bpmn.*;
 import org.processmining.models.graphbased.directed.bpmn.BPMNNode;
 import org.processmining.models.graphbased.directed.bpmn.elements.*;
+import org.processmining.models.graphbased.directed.petrinet.Petrinet;
+import org.processmining.models.graphbased.directed.petrinet.elements.Arc;
+import org.processmining.models.graphbased.directed.petrinet.elements.Place;
+import org.processmining.models.graphbased.directed.petrinet.elements.Transition;
+import org.processmining.models.graphbased.directed.petrinet.impl.PetrinetImpl;
 import org.processmining.plugins.bpmn.BpmnFlow;
 
 import java.util.*;
@@ -14,6 +19,78 @@ import java.util.*;
  */
 
 public class MyParser {
+    
+    private static int usefulInteger = 1337;
+    private static int nodeIndexCounter = 0;
+
+    protected static PetrinetImpl getOuputPetrinet(MyPetrinet myPetrinet){
+        PetrinetImpl outputPetrinet = new PetrinetImpl("test");
+
+        Collection<MyPlace> myPlaces = myPetrinet.getMyPlaces();
+        Collection<MyTransition> myTransitions = myPetrinet.getMyTransitions();
+        String myLabel = myPetrinet.getLabel();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //gotta do this after inserting places
+        for(MyPlace myPlace : myPlaces){
+            
+            MyTransition outTransition = myPlace.getOutgoingTransition();
+            // this loop is for arcs going from place to transition
+            for(MyPlace myIncomingPlace: outTransition.getIncomingPlaces()){
+                Place srcPlace = new Place(myIncomingPlace.getId(), outputPetrinet);
+                Transition tgtTransition = new Transition(myPlace.getOutgoingTransition().getId(), outputPetrinet);
+                if(!outputPetrinet.getPlaces().contains(srcPlace)){
+                    //outputPetrinet.addPlace(srcPlace);
+                    //outputPetrinet.add
+                }
+                // package the Arc class and send on its way
+                if(outputPetrinet.getArc(srcPlace, tgtTransition) == (null)){
+                    outputPetrinet.addArc(srcPlace, tgtTransition);
+                }
+
+            }
+
+            MyTransition inTransition = myPlace.getIncomingTransition();
+            // this loop is for arcs going from transition to place
+            for(MyPlace myOutgoingPlace: inTransition.getOutgoingPlaces()){
+                Place tgtPlace = new Place(myOutgoingPlace.getId(), outputPetrinet);
+                Transition srcTransition = new Transition(myPlace.getIncomingTransition().getId(), outputPetrinet);
+                // package the Arc class and send on its way
+                if(outputPetrinet.getArc(tgtPlace, srcTransition).equals(null)){
+                    outputPetrinet.addArc(tgtPlace, srcTransition);
+                }
+
+            }
+        }
+
+
+
+
+
+
+
+        return outputPetrinet;
+    }
 
 
 

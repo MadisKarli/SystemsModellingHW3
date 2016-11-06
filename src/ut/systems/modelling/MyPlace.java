@@ -4,6 +4,10 @@ package ut.systems.modelling;
  * Created by Joonas Papoonas on 4/11/2016.
  */
 public class MyPlace {
+    public String getId() {
+        return id;
+    }
+
     private String id;
     private MyTransition incomingMyTransition = null;
     private MyTransition outgoingMyTransition = null;

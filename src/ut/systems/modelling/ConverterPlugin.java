@@ -54,43 +54,13 @@ public class ConverterPlugin {
         // did sth, maybe working
         MyBPMNModel myBPMNModel = MyParser.getMyBPMNModel(diagram);
         MyPetrinet myPetrinet = MyConverter.BPMNtoMyPetrinet(myBPMNModel);
-
-        ///////////////TESTING //////////////////////////////////
-/*
-        Collection<MyTask> myTasks = myMyBPMNModel.getTasks();
-        Set<MyBPMNNode> nodes = myMyBPMNModel.getNodes();
-        Collection<MySequenceFlow> flows = myMyBPMNModel.getSequenceFlows();
-        Collection<MyBPMNModel> subProcesses = myMyBPMNModel.getSubProcesses();
-
-       for ( MyTask element : myTasks) {
-            System.out.println(element.toString());
-        }
-
-        for ( MyBPMNNode element : nodes) {
-            System.out.println(element.toString());
-        }
-
-        for ( MySequenceFlow element : flows) {
-            System.out.println(element.toString());
-        }
-
-        for ( MyBPMNModel element : subProcesses) {
-            System.out.println(element.toString());
-        }*/
-
-
-        ///////////////TESTING //////////////////////////////////
-
-
-
-
-
+        PetrinetImpl outputPetrinet = MyParser.getOuputPetrinet(myPetrinet);
 
 
         //pn = MyConverter.getPN(myMyBPMNModel); // fill this object with data from myPNObject
 
 
-        return pn;
+        return outputPetrinet;
     }
 
     public static Petrinet shadow(){

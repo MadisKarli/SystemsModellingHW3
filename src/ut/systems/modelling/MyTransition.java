@@ -10,8 +10,13 @@ public class MyTransition {
     private ArrayList<MyPlace> incomingMyPlace;
     private ArrayList<MyPlace> outgoingMyPlace;
 
+    public String getId() {
+        return id;
+    }
+
     public MyTransition(String id) {
         incomingMyPlace = new ArrayList<>();
+
         outgoingMyPlace = new ArrayList<>();
         this.id = id;
     }
