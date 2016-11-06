@@ -62,26 +62,4 @@ public class ConverterPlugin {
 
         return outputPetrinet;
     }
-
-    public static Petrinet shadow(){
-
-        //TODO copy this thing back to where it was before
-        //Do not know if there is any point here
-
-
-        //Create a test BPMNDiagram to speed up testing and development
-        BPMNDiagram diagram = new BPMNDiagramImpl("");
-        Petrinet pn = null;
-
-
-        pn = new PetrinetImpl("myPetriNet");
-        pn.addPlace("Start_place");
-
-        return pn;
-    }
-    public static void main(String args[]){
-        //Main method for testing
-        //Move these things back to optimizeDiagram later
-        shadow();
-    }
 }

@@ -11,25 +11,24 @@ import java.util.function.BooleanSupplier;
 
 /**
  * Created by Joonas Papoonas on 4/11/2016.
+ * uses rng for id's
  */
 public class MyConverter {
+
     public static MyPetrinet BPMNtoMyPetrinet(MyBPMNModel myBPMNModel) {
+        Random rng = new Random();
 
         MyPetrinet myOutputPN = new MyPetrinet("myOutputPN");
 
         MyPlace myStartPlace = new MyPlace("myStartPlace");
         MyTransition myStartTransition = new MyTransition("myStartTransition");
 
-        //myStartPlace.setOutgoingMyTransition(myStartTransition);
-        //myStartTransition.setIncomingMyPlace(myStartPlace);//TODO should this be addArcP2T?
         myOutputPN.addPlace(myStartPlace);
         myOutputPN.addTransition(myStartTransition);
         myOutputPN.addArcP2T(myStartTransition, myStartPlace);
 
         MyPlace myEndPlace = new MyPlace("myEndPlace");
         MyTransition myEndTransition = new MyTransition("myEndTransition");
-        //myEndPlace.setIncomingMyTransition(myEndTransition);
-        //myEndTransition.setOutgoingMyPlace(myEndPlace);//TODO should this be addArcT2P?
         myOutputPN.addPlace(myEndPlace);
         myOutputPN.addTransition(myEndTransition);
         myOutputPN.addArcT2P(myStartTransition, myStartPlace);
@@ -52,7 +51,7 @@ public class MyConverter {
 
         //22. - 57.
         for(MySequenceFlow mySequenceFlow : mySequenceFlows){
-            MyPlace place = new MyPlace("");
+            MyPlace place = new MyPlace("Place " + String.valueOf(rng.nextInt(1000000)));
             myOutputPN.addPlace(place);
 
             MyBPMNNode src = mySequenceFlow.getSrc();
@@ -64,7 +63,7 @@ public class MyConverter {
             if(!myMap.containsKey(src)){
                 MyCompoundTask myCompoundTask = myBPMNModel.isKindOfCompound(src);
                 MyGateway myGateway = myBPMNModel.isKindOfGateway(src);
-                MyTransition srcTransition = new MyTransition("");
+                MyTransition srcTransition = new MyTransition("Transition " + String.valueOf(rng.nextInt(1000000)));
 
                 //30. - 38.
                 if(myCompoundTask != null) {
@@ -100,7 +99,7 @@ public class MyConverter {
             if(!myMap.containsKey(tgt)){
                 MyCompoundTask myCompoundTask = myBPMNModel.isKindOfCompound(tgt);
                 MyGateway myGateway = myBPMNModel.isKindOfGateway(tgt);
-                MyTransition tgtTransition = new MyTransition("");
+                MyTransition tgtTransition = new MyTransition("Transition " + String.valueOf(rng.nextInt(1000000)));
 
 
                 if(myCompoundTask != null) {
@@ -133,7 +132,7 @@ public class MyConverter {
         //58. - 66.
         for (MyTransition myTransition : myXORsplits){
 
-            MyTransition invisibleTransition = new MyTransition("");
+            MyTransition invisibleTransition = new MyTransition("Transition " + String.valueOf(rng.nextInt(1000000)));
             myOutputPN.addTransition(invisibleTransition);
 
             //out of bounds
@@ -146,7 +145,7 @@ public class MyConverter {
         //67. - 75.
         for (MyTransition myTransition : myXORjoins){
 
-            MyTransition invisibleTransition = new MyTransition("");
+            MyTransition invisibleTransition = new MyTransition("Transition " + String.valueOf(rng.nextInt(1000000)));
             myOutputPN.addTransition(invisibleTransition);
 
             myOutputPN.addArcP2T(invisibleTransition, myTransition.getIncomingPlaces().get(0));
