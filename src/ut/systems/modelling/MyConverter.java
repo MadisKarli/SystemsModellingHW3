@@ -17,6 +17,7 @@ public class MyConverter {
 
     public static MyPetrinet BPMNtoMyPetrinet(MyBPMNModel myBPMNModel) {
         Random rng = new Random();
+        int rngSize = 10000000;
 
         MyPetrinet myOutputPN = new MyPetrinet("myOutputPN");
 
@@ -31,7 +32,7 @@ public class MyConverter {
         MyTransition myEndTransition = new MyTransition("myEndTransition");
         myOutputPN.addPlace(myEndPlace);
         myOutputPN.addTransition(myEndTransition);
-        myOutputPN.addArcT2P(myStartTransition, myStartPlace);
+        myOutputPN.addArcT2P(myEndTransition, myEndPlace);
 
 
         MyEvent myStartEvent = myBPMNModel.getStartEvent();
@@ -51,7 +52,7 @@ public class MyConverter {
 
         //22. - 57.
         for(MySequenceFlow mySequenceFlow : mySequenceFlows){
-            MyPlace place = new MyPlace("Place " + String.valueOf(rng.nextInt(1000000)));
+            MyPlace place = new MyPlace("Place " + String.valueOf(rng.nextInt(rngSize)));
             myOutputPN.addPlace(place);
 
             MyBPMNNode src = mySequenceFlow.getSrc();
@@ -63,7 +64,7 @@ public class MyConverter {
             if(!myMap.containsKey(src)){
                 MyCompoundTask myCompoundTask = myBPMNModel.isKindOfCompound(src);
                 MyGateway myGateway = myBPMNModel.isKindOfGateway(src);
-                MyTransition srcTransition = new MyTransition("Transition " + String.valueOf(rng.nextInt(1000000)));
+                MyTransition srcTransition = new MyTransition("Transition " + String.valueOf(rng.nextInt(rngSize)));
 
                 //30. - 38.
                 if(myCompoundTask != null) {
@@ -99,7 +100,7 @@ public class MyConverter {
             if(!myMap.containsKey(tgt)){
                 MyCompoundTask myCompoundTask = myBPMNModel.isKindOfCompound(tgt);
                 MyGateway myGateway = myBPMNModel.isKindOfGateway(tgt);
-                MyTransition tgtTransition = new MyTransition("Transition " + String.valueOf(rng.nextInt(1000000)));
+                MyTransition tgtTransition = new MyTransition("Transition " + String.valueOf(rng.nextInt(rngSize)));
 
 
                 if(myCompoundTask != null) {
@@ -132,7 +133,7 @@ public class MyConverter {
         //58. - 66.
         for (MyTransition myTransition : myXORsplits){
 
-            MyTransition invisibleTransition = new MyTransition("Transition " + String.valueOf(rng.nextInt(1000000)));
+            MyTransition invisibleTransition = new MyTransition("Transition " + String.valueOf(rng.nextInt(rngSize)));
             myOutputPN.addTransition(invisibleTransition);
 
             //out of bounds
@@ -145,7 +146,7 @@ public class MyConverter {
         //67. - 75.
         for (MyTransition myTransition : myXORjoins){
 
-            MyTransition invisibleTransition = new MyTransition("Transition " + String.valueOf(rng.nextInt(1000000)));
+            MyTransition invisibleTransition = new MyTransition("Transition " + String.valueOf(rng.nextInt(rngSize)));
             myOutputPN.addTransition(invisibleTransition);
 
             myOutputPN.addArcP2T(invisibleTransition, myTransition.getIncomingPlaces().get(0));

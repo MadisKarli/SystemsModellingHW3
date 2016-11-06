@@ -1,5 +1,6 @@
 package ut.systems.modelling;
 
+import com.thoughtworks.xstream.mapper.Mapper;
 import org.processmining.models.graphbased.directed.ContainableDirectedGraphElement;
 import org.processmining.models.graphbased.directed.bpmn.*;
 import org.processmining.models.graphbased.directed.bpmn.BPMNNode;
@@ -56,31 +57,31 @@ public class MyParser {
             
             MyTransition outTransition = myPlace.getOutgoingTransition();
             // this loop is for arcs going from place to transition
-            for(MyPlace myIncomingPlace: outTransition.getIncomingPlaces()){
-                Place srcPlace = new Place(myIncomingPlace.getId(), outputPetrinet);
-                Transition tgtTransition = new Transition(myPlace.getOutgoingTransition().getId(), outputPetrinet);
-                if(!outputPetrinet.getPlaces().contains(srcPlace)){
-                    //outputPetrinet.addPlace(srcPlace);
-                    //outputPetrinet.add
+            try{
+                for(MyPlace myIncomingPlace: outTransition.getIncomingPlaces()){
+                    Place srcPlace = new Place(myIncomingPlace.getId(), outputPetrinet);
+                    Transition tgtTransition = new Transition(myPlace.getOutgoingTransition().getId(), outputPetrinet);
+                    if(!outputPetrinet.getPlaces().contains(srcPlace)){
+                        outputPetrinet.addArc(outputPetrinet.addPlace(myIncomingPlace.getId()),
+                                outputPetrinet.addTransition(myPlace.getOutgoingTransition().getId()));
+                    }
                 }
-                // package the Arc class and send on its way
-                if(outputPetrinet.getArc(srcPlace, tgtTransition) == (null)){
-                    outputPetrinet.addArc(srcPlace, tgtTransition);
-                }
-
+            }catch(NullPointerException e){
+                System.out.println(outTransition + " does not have any incoming places");
             }
 
-            MyTransition inTransition = myPlace.getIncomingTransition();
-            // this loop is for arcs going from transition to place
-            for(MyPlace myOutgoingPlace: inTransition.getOutgoingPlaces()){
-                Place tgtPlace = new Place(myOutgoingPlace.getId(), outputPetrinet);
-                Transition srcTransition = new Transition(myPlace.getIncomingTransition().getId(), outputPetrinet);
-                // package the Arc class and send on its way
-                if(outputPetrinet.getArc(tgtPlace, srcTransition).equals(null)){
-                    outputPetrinet.addArc(tgtPlace, srcTransition);
-                }
 
-            }
+//            MyTransition inTransition = myPlace.getIncomingTransition();
+//            // this loop is for arcs going from transition to place
+//            for(MyPlace myOutgoingPlace: inTransition.getOutgoingPlaces()){
+//                Place tgtPlace = new Place(myOutgoingPlace.getId(), outputPetrinet);
+//                Transition srcTransition = new Transition(myPlace.getIncomingTransition().getId(), outputPetrinet);
+//                // package the Arc class and send on its way
+//                if(outputPetrinet.getArc(tgtPlace, srcTransition).equals(null)){
+//                    outputPetrinet.addArc(tgtPlace, srcTransition);
+//                }
+//
+//            }
         }
 
 
