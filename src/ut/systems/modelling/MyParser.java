@@ -1,6 +1,5 @@
 package ut.systems.modelling;
 
-import com.thoughtworks.xstream.mapper.Mapper;
 import org.processmining.models.graphbased.directed.ContainableDirectedGraphElement;
 import org.processmining.models.graphbased.directed.bpmn.*;
 import org.processmining.models.graphbased.directed.bpmn.BPMNNode;
@@ -20,11 +19,11 @@ import java.util.*;
  */
 
 public class MyParser {
-    
+
     private static int usefulInteger = 1337;
     private static int nodeIndexCounter = 0;
 
-    protected static PetrinetImpl getOuputPetrinet(MyPetrinet myPetrinet){
+    protected static PetrinetImpl getOuputPetrinet(MyPetrinet myPetrinet) {
         PetrinetImpl outputPetrinet = new PetrinetImpl("test");
 
         Collection<MyPlace> myPlaces = myPetrinet.getMyPlaces();
@@ -32,71 +31,221 @@ public class MyParser {
         String myLabel = myPetrinet.getLabel();
 
 
-
         //gotta do this after inserting places
-        for(MyPlace myPlace : myPlaces){
-            
+        for (MyPlace myPlace : myPlaces) {
+
             MyTransition outTransition = myPlace.getOutgoingTransition();
             MyTransition inTransition = myPlace.getIncomingTransition();
             ArrayList<MyPlace> myIncomingPlaces = new ArrayList<>();
             ArrayList<MyPlace> myOutgoingPlaces = new ArrayList<>();
 
-            try{
+            try {
                 myIncomingPlaces = outTransition.getIncomingPlaces();
-            }catch(NullPointerException e){
+            } catch (NullPointerException e) {
                 System.out.println(outTransition + " does not have any incoming places");
             }
 
 
-            try{
+            try {
                 myOutgoingPlaces = inTransition.getOutgoingPlaces();
-            }catch(NullPointerException e){
+            } catch (NullPointerException e) {
                 System.out.println(outTransition + " does not have any outgoing places");
             }
 
-            if (myOutgoingPlaces.size() > 0 && myIncomingPlaces.size() > 0){
-                //TODO not sure if it works
-                for(MyPlace myOutgoingPlace: myOutgoingPlaces) {
+            if (myOutgoingPlaces.size() > 0 && myIncomingPlaces.size() > 0) {
+
+                for (MyPlace myOutgoingPlace : myOutgoingPlaces) {
+                    //Stop doubleadding
+                    Boolean a = true;
+                    Boolean b = true;
+                    Boolean c = true;
+                    for (Place p : outputPetrinet.getPlaces()) {
+                        if (p.getLabel().equals(myOutgoingPlace.getId())) {
+                            a = false;
+                        }
+                    }
+                    for (Transition t: outputPetrinet.getTransitions()){
+                        if (t.getLabel().equals(myOutgoingPlace.getIncomingTransition().getId())) {
+                            b = false;
+                        }
+                        if (t.getLabel().equals(myOutgoingPlace.getOutgoingTransition().getId())) {
+                            c = false;
+                        }
+                    }
+                    if (a) {
+                        outputPetrinet.addPlace(myOutgoingPlace.getId());
+                    }
+                    if (b) {
+                        outputPetrinet.addTransition(myOutgoingPlace.getIncomingTransition().getId());
+                    }
+                    if (c) {
+                        outputPetrinet.addTransition(myOutgoingPlace.getOutgoingTransition().getId());
+                    }
+
+                    System.out.println("myOutgoingPlace sitt");
+                    System.out.println("we are " + myOutgoingPlace.getId());
+                    for (Place p : outputPetrinet.getPlaces()) {
+
+                        if (myOutgoingPlace.getId().equals(p.getLabel())) {
+
+                            MyTransition outgoing = myOutgoingPlace.getOutgoingTransition();
+                            for (Transition t : outputPetrinet.getTransitions()) {
+                                if (outgoing.getId().equals(t.getLabel())) {
+                                    System.out.println("This is transition " + t.getLabel());
+                                    outputPetrinet.addArc(p, t);
+
+                                }
+                            }
+
+//                            MyTransition incoming = myOutgoingPlace.getIncomingTransition();
+//                            for (Transition t : outputPetrinet.getTransitions()) {
+//                                if (incoming.getId().equals(t.getLabel())) {
+//                                    System.out.println("This is transition " + t.getLabel());
+//                                    System.out.println("found match 2");
+//                                    outputPetrinet.addArc(t, p);
+//                                    try {
+//                                        MyPlace previousPlace = incoming.getIncomingPlaces().get(0);//TODO here is getFirst
+//                                        for (Place p2 : outputPetrinet.getPlaces()) {
+//                                            if (previousPlace.getId().equals(p2.getLabel())) {
+//                                                outputPetrinet.addArc(p2, t);
+//                                            }
+//                                        }
+//                                    } catch (IndexOutOfBoundsException e) {
+//                                        System.out.println("KAKAKOTT");
+//                                    }
+//                                }
+//                            }
+                        }
+                    }
+                }
+
+                for (MyPlace myIncomingPlace : myIncomingPlaces) {
+                    //Stop doubleadding
+                    Boolean a = true;
+                    Boolean b = true;
+                    Boolean c = true;
+                    for (Place p : outputPetrinet.getPlaces()) {
+                        if (p.getLabel().equals(myIncomingPlace.getId())) {
+                            a = false;
+                        }
+                    }for (Transition t: outputPetrinet.getTransitions()){
+                        if (t.getLabel().equals(myIncomingPlace.getIncomingTransition().getId())) {
+                            b = false;
+                        }
+                        if (t.getLabel().equals(myIncomingPlace.getOutgoingTransition().getId())) {
+                            c = false;
+                        }
+                    }
+                    if (a) {
+                        outputPetrinet.addPlace(myIncomingPlace.getId());
+                    }
+                    if (b) {
+                        outputPetrinet.addTransition(myIncomingPlace.getIncomingTransition().getId());
+                    }
+                    if (c) {
+                        outputPetrinet.addTransition(myIncomingPlace.getOutgoingTransition().getId());
+                    }
+
+                    System.out.println("myIncomingPlace sitt");
+                    System.out.println("we are " + myIncomingPlace.getId());
+                    for (Place p : outputPetrinet.getPlaces()) {
+
+                        if(myIncomingPlace.getId().equals(p.getLabel())){
+
+                            MyTransition incoming = myIncomingPlace.getIncomingTransition();
+                            for (Transition t : outputPetrinet.getTransitions()){
+                                if(incoming.getId().equals(t.getLabel())){
+                                    System.out.println("This is transition " + t.getLabel());
+                                    outputPetrinet.addArc(t, p);
+
+                                    try {
+                                        MyPlace previousPlace = incoming.getIncomingPlaces().get(0);//TODO here is get 0, trypaska pole avja
+                                        for (Place pp : outputPetrinet.getPlaces()) {
+                                            if (previousPlace.getId().equals(pp.getLabel())) {
+                                                System.out.println("This is previous place " + pp.getLabel());
+                                                outputPetrinet.addArc(pp, t);
+
+                                            }
+                                        }
+                                    }catch (IndexOutOfBoundsException e){
+                                        System.out.println("KAKAKOTT");
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } else if (myOutgoingPlaces.size() > 0) {
+                for (MyPlace myOutgoingPlace : myOutgoingPlaces) {
                     Place tgtPlace = new Place(myOutgoingPlace.getId(), outputPetrinet);
+                    MyTransition incomingTransition = myPlace.getIncomingTransition();
 
                     if (!outputPetrinet.getPlaces().contains(tgtPlace)) {
                         outputPetrinet.addArc(outputPetrinet.addTransition(myPlace.getIncomingTransition().getId()),
                                 outputPetrinet.addPlace(myOutgoingPlace.getId()));
                     }
+                    System.out.println("myOutgoingPlaces.size() > 0");
+                    System.out.println("we are " + myOutgoingPlace.getId());
+                    for (Place p : outputPetrinet.getPlaces()) {
+                        if (myOutgoingPlace.getId().equals(p.getLabel())) {
+
+                            MyTransition incoming = myOutgoingPlace.getIncomingTransition();
+
+                            for (Transition t : outputPetrinet.getTransitions()) {
+                                if (incoming.getId().equals(t.getLabel())) {
+                                    System.out.println("found match 2");
+                                    System.out.println("This is transition " + t.getLabel());
+                                    outputPetrinet.addArc(t, p);
+
+//                                    MyPlace previousPlace = incoming.getIncomingPlaces().get(0);//TODO here is getFirst
+//
+//                                    for (Place p2 : outputPetrinet.getPlaces()) {
+//                                        if(previousPlace.getId().equals(p2.getLabel())){
+//                                            outputPetrinet.addArc(p2, t);
+//                                        }
+//                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-                for(MyPlace myIncomingPlace: myIncomingPlaces){
+            } else if (myIncomingPlaces.size() > 0) {
+                for (MyPlace myIncomingPlace : myIncomingPlaces) {
                     Place srcPlace = new Place(myIncomingPlace.getId(), outputPetrinet);
                     Transition tgtTransition = new Transition(myPlace.getOutgoingTransition().getId(), outputPetrinet);
-                    if(!outputPetrinet.getPlaces().contains(srcPlace)){
+                    if (!outputPetrinet.getPlaces().contains(srcPlace)) {
                         outputPetrinet.addArc(outputPetrinet.addPlace(myIncomingPlace.getId()),
                                 outputPetrinet.addTransition(myPlace.getOutgoingTransition().getId()));
                     }
-                }
+                    //Kas leiame järgmise üles
+                    System.out.println("myIncomingPlaces.size() > 0");
+                    System.out.println("we are " + myIncomingPlace.getId());
+                    for (Place p : outputPetrinet.getPlaces()) {
+                        if (myIncomingPlace.getId().equals(p.getLabel())) {
+                            System.out.println("This is " + p.getLabel());
+                            System.out.println("found match");
 
-            }else if (myOutgoingPlaces.size() > 0){
-                for(MyPlace myOutgoingPlace: myOutgoingPlaces){
-                Place tgtPlace = new Place(myOutgoingPlace.getId(), outputPetrinet);
+                            MyTransition outgoing = myIncomingPlace.getOutgoingTransition();
 
-                    if(!outputPetrinet.getPlaces().contains(tgtPlace)){
-                        outputPetrinet.addArc(outputPetrinet.addTransition(myPlace.getIncomingTransition().getId()),
-                                outputPetrinet.addPlace(myOutgoingPlace.getId()));
-                }
-            }
-            }else if (myIncomingPlaces.size() > 0){
-                for(MyPlace myIncomingPlace: myIncomingPlaces){
-                    Place srcPlace = new Place(myIncomingPlace.getId(), outputPetrinet);
-                    Transition tgtTransition = new Transition(myPlace.getOutgoingTransition().getId(), outputPetrinet);
-                    if(!outputPetrinet.getPlaces().contains(srcPlace)){
-                        outputPetrinet.addArc(outputPetrinet.addPlace(myIncomingPlace.getId()),
-                                outputPetrinet.addTransition(myPlace.getOutgoingTransition().getId()));
+                            for (Transition t : outputPetrinet.getTransitions()) {
+                                if (outgoing.getId().equals(t.getLabel())) {
+                                    System.out.println("found match 2");
+                                    System.out.println("This is transition " + t.getLabel());
+                                    outputPetrinet.addArc(t, p);
+
+//                                    MyPlace previousPlace = outgoing.getOutgoingPlaces().get(0);//TODO here is getFirst
+//
+//                                    for (Place p2 : outputPetrinet.getPlaces()) {
+//                                        if (previousPlace.getId().equals(p2.getLabel())) {
+//                                            outputPetrinet.addArc(p2, t);
+//                                        }
+//                                    }
+                                }
+                            }
+                        }
                     }
-                    //Kas leiame eelmise üles
-                    for(Place p: outputPetrinet.getPlaces()){
-                        System.out.println("This is " + p.getLabel());
-                        System.out.println("Parent is " + p.getParent().getLabel());
-                    }
                 }
-            }else{
+            } else {
                 System.out.println(myPlace + "is a weird place without incoming or outgoing transitions");
             }
 
@@ -134,9 +283,7 @@ public class MyParser {
     }
 
 
-
-
-    protected static MyBPMNModel getMyBPMNModel(BPMNDiagram diagram){
+    protected static MyBPMNModel getMyBPMNModel(BPMNDiagram diagram) {
 
         MyBPMNModel myBPMNModel = new MyBPMNModel();
 
@@ -154,11 +301,11 @@ public class MyParser {
 
     /////////////////////////////////// NODE STUFF /////////////////////////////////////////////////
     //converts BPMNDiagram nodes into our Node format
-    private static Set<MyBPMNNode> getMyNodes(BPMNDiagram diagram){
+    private static Set<MyBPMNNode> getMyNodes(BPMNDiagram diagram) {
         Set<BPMNNode> nodes = diagram.getNodes();
         Set<MyBPMNNode> myNodes = new HashSet<MyBPMNNode>();
 
-        for ( BPMNNode element : nodes) {
+        for (BPMNNode element : nodes) {
             MyBPMNNode myNode = convertBPMNNode2MyBPMNNode(element);
             myNodes.add(myNode); // fucken fails here. np exception
             //element.getLabel();
@@ -174,22 +321,18 @@ public class MyParser {
     //Also how gotta look into how to extract if BPMNNode is a task, event or a gateway
     //  since there is no 'getTasks' method for BPMNNode imo
     // the BPMNDiagram node has some weird parameters, check later what is useful and what is not
-    private static MyBPMNNode convertBPMNNode2MyBPMNNode(BPMNNode node){
+    private static MyBPMNNode convertBPMNNode2MyBPMNNode(BPMNNode node) {
         MyBPMNNode myNode = new MyBPMNNode(node.getId().toString());
         return myNode;
     }
 
 
-
-
-    
-
-////////////////////////////// SEQUENCEFLOW STUFF ////////////////////////////////////////
-    private static Collection<MySequenceFlow> getMySequenceFlows(BPMNDiagram diagram){
+    ////////////////////////////// SEQUENCEFLOW STUFF ////////////////////////////////////////
+    private static Collection<MySequenceFlow> getMySequenceFlows(BPMNDiagram diagram) {
         Collection<Flow> flows = diagram.getFlows();
         Collection<MySequenceFlow> myFlows = new ArrayList<MySequenceFlow>();
 
-        for (Flow element : flows){
+        for (Flow element : flows) {
             myFlows.add(convertFlow2MySequenceFlow(element, diagram));
             //System.out.println(element.toString());
         }
@@ -210,16 +353,14 @@ public class MyParser {
     }
 
 
-
-
 /////////////////////// TASKS STUFF     ///////////////////////////////////////////////////
 
 
-    private static Collection<MyTask> getMyTasks(BPMNDiagram diagram){
+    private static Collection<MyTask> getMyTasks(BPMNDiagram diagram) {
         Collection<Activity> activities = diagram.getActivities();
         Collection<MyTask> myTasks = new ArrayList<MyTask>();
 
-        for (Activity element : activities){
+        for (Activity element : activities) {
             myTasks.add(convertActivity2MyTask(element));
             System.out.println(element.toString());
             //System.out.println(element.getId());
@@ -235,11 +376,11 @@ public class MyParser {
 
 /////////////////////////// COMPOUNDTASK STUFF //////////////////////////////////////////
 
-    private static Collection<MyCompoundTask> getMyCompundTasks(BPMNDiagram diagram){
+    private static Collection<MyCompoundTask> getMyCompundTasks(BPMNDiagram diagram) {
         Collection<SubProcess> subProcesses = diagram.getSubProcesses();
         Collection<MyCompoundTask> myCompoundTasks = new ArrayList<MyCompoundTask>();
 
-        for (SubProcess element : subProcesses){
+        for (SubProcess element : subProcesses) {
             myCompoundTasks.add(convertSubProcess2MyCompoundTask(element, diagram));
             System.out.println(element.toString());
         }
@@ -256,11 +397,11 @@ public class MyParser {
         myCompoundTask.setNodes(myNodes);
         myCompoundTask.setMySequenceFlows(myFlows);
 
-        for (ContainableDirectedGraphElement node : nodes){
+        for (ContainableDirectedGraphElement node : nodes) {
             myNodes.add(convertSubNode2MyBPMNNode(node));
         }
 
-        for (Flow flow : flows){
+        for (Flow flow : flows) {
             myFlows.add(convertFlow2MySequenceFlow(flow, diagram));
         }
         return myCompoundTask;
@@ -274,11 +415,11 @@ public class MyParser {
 
 ////////////////////////////////// MYGATEWAY STUFF ////////////////////////////////////////////
 
-    private static Collection<MyGateway> getMyGateways(BPMNDiagram diagram){
+    private static Collection<MyGateway> getMyGateways(BPMNDiagram diagram) {
         Collection<Gateway> gateways = diagram.getGateways();
         Collection<MyGateway> myGateways = new ArrayList<MyGateway>();
 
-        for (Gateway element : gateways){
+        for (Gateway element : gateways) {
             myGateways.add(convertGateway2MyGateway(element));
         }
         return myGateways;
@@ -293,11 +434,11 @@ public class MyParser {
 ////////////////////////// MYEVENT STUFF //////////////////////////////////////////////////////
 
 
-    private static Collection<MyEvent> getMyEvents(BPMNDiagram diagram){
+    private static Collection<MyEvent> getMyEvents(BPMNDiagram diagram) {
         Collection<Event> events = diagram.getEvents();
         Collection<MyEvent> myEvents = new ArrayList<MyEvent>();
 
-        for (Event element : events){
+        for (Event element : events) {
             myEvents.add(convertEvent2MyEvent(element));
             System.out.println(element.getId());
         }
@@ -308,8 +449,6 @@ public class MyParser {
         MyEvent myEvent = new MyEvent(element.getId().toString());
         return myEvent;
     }
-
-
 
 
 }
