@@ -1,4 +1,3 @@
-
 package ut.systems.modelling;
 
 import org.processmining.models.graphbased.directed.bpmn.BPMNDiagram;
@@ -18,8 +17,14 @@ public class MyConverter {
     public static MyPetrinet BPMNtoMyPetrinet(MyBPMNModel myBPMNModel) {
         Random rng = new Random();
         int rngSize = 10000000;
+        boolean first = true;
+        boolean last = true;
+        int counter = 1;
+        MyPlace placeHolder = null;
+        MyTransition transitionHolder = null;
 
         MyPetrinet myOutputPN = new MyPetrinet("myOutputPN");
+
 
         MyPlace myStartPlace = new MyPlace("myStartPlace");
         MyTransition myStartTransition = new MyTransition("myStartTransition");
@@ -34,29 +39,43 @@ public class MyConverter {
         myOutputPN.addTransition(myEndTransition);
         myOutputPN.addArcT2P(myEndTransition, myEndPlace);
 
+        MyPlace place = new MyPlace("Place " + String.valueOf(rng.nextInt(rngSize)));
+        placeHolder = place;
+        myOutputPN.addPlace(place);
+        myOutputPN.addArcT2P(myStartTransition, place);
+
 
         MyEvent myStartEvent = myBPMNModel.getStartEvent();
         MyEvent myEndEvent = myBPMNModel.getEndEvent();
 
         Map<MyBPMNNode, MyTransition> myMap = new HashMap<>();
-        
+
         myMap.put(myStartEvent, myStartTransition);
         myMap.put(myEndEvent, myEndTransition);
 
         Collection<MySequenceFlow> mySequenceFlows = myBPMNModel.getSequenceFlows();
 
         Set<MyTransition> myXORsplits = new HashSet<>();
-        Set<MyTransition> myXORjoins = new HashSet<>();        
+        Set<MyTransition> myXORjoins = new HashSet<>();
         Map<MyTransition, MyBPMNModel> mySubprocesses = new HashMap<>();
 
 
         //22. - 57.
         for(MySequenceFlow mySequenceFlow : mySequenceFlows){
-            MyPlace place = new MyPlace("Place " + String.valueOf(rng.nextInt(rngSize)));
-            myOutputPN.addPlace(place);
+
+
 
             MyBPMNNode src = mySequenceFlow.getSrc();
             MyBPMNNode tgt = mySequenceFlow.getTgt();
+
+            if(first){
+
+                first = false;
+            }
+
+            if(counter == mySequenceFlows.size()){
+                myOutputPN.addArcP2T(myEndTransition, placeHolder);
+            }
 
 
 
@@ -65,12 +84,13 @@ public class MyConverter {
                 MyCompoundTask myCompoundTask = myBPMNModel.isKindOfCompound(src);
                 MyGateway myGateway = myBPMNModel.isKindOfGateway(src);
                 MyTransition srcTransition = new MyTransition("Transition " + String.valueOf(rng.nextInt(rngSize)));
+                transitionHolder = srcTransition;
 
                 //30. - 38.
                 if(myCompoundTask != null) {
                     srcTransition = new MyTransition(src.getId());
                     myOutputPN.addTransition(srcTransition);
-                    myOutputPN.addArcP2T(srcTransition, place);//not in sequence diagram
+                    //myOutputPN.addArcP2T(srcTransition, place);//not in sequence diagram
                     mySubprocesses.put(srcTransition, myCompoundTask.convertToMyBPMNModel());
                 }else if(myGateway != null){
                     srcTransition = new MyTransition(src.getId());
@@ -84,7 +104,16 @@ public class MyConverter {
                 }else{
                     MyTransition myTransition = new MyTransition(src.getId());
                     myOutputPN.addTransition(myTransition);
-                    myOutputPN.addArcP2T(myTransition, place);//not in sequence diagram
+                    if(placeHolder == null){
+                        place = new MyPlace("Place " + String.valueOf(rng.nextInt(rngSize)));
+                        myOutputPN.addArcP2T(myTransition, place);//not in sequence diagram
+                        transitionHolder = myTransition;
+                    }else{
+                        myOutputPN.addArcP2T(myTransition, placeHolder);//not in sequence diagram
+                        transitionHolder = myTransition;
+                        placeHolder = null;
+                    }
+
                 }
                 myMap.put(src, srcTransition);
             }
@@ -118,15 +147,29 @@ public class MyConverter {
                         myXORjoins.add(tgtTransition);
                     }
                 }else{
-                    MyTransition myTransition = new MyTransition(tgt.getId());
-                    myOutputPN.addTransition(myTransition);
-                    myOutputPN.addArcT2P(myTransition, place);//not in sequence diagram
+                    if(placeHolder == null){
+                        MyPlace place2 = new MyPlace("Place " + String.valueOf(rng.nextInt(rngSize)));
+                        myOutputPN.addPlace(place2);
+                        myOutputPN.addArcT2P(transitionHolder, place2);
+                        placeHolder = place2;
+                    }else{
+                        myOutputPN.addArcT2P(transitionHolder, placeHolder);
+                        placeHolder = null;
+                    }
+
+
+
+                    //MyTransition myTransition = new MyTransition(tgt.getId());
+                    //myOutputPN.addTransition(myTransition);
+                    //myOutputPN.addArcT2P(myTransition, place);//not in sequence diagram
                 }
-                myMap.put(tgt, tgtTransition);
+                //myMap.put(tgt, tgtTransition);
             }
 
-            MyTransition tgtTransition = myMap.get(tgt);
-            myOutputPN.addArcP2T(tgtTransition, place);
+            //MyTransition tgtTransition = myMap.get(tgt);
+            //myOutputPN.addArcP2T(tgtTransition, place);
+
+            counter ++;
         }
 
 

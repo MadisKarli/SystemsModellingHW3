@@ -20,8 +20,81 @@ import java.util.*;
 
 public class MyParser {
 
-    private static int usefulInteger = 1337;
-    private static int nodeIndexCounter = 0;
+    protected static PetrinetImpl getOuputPetrinet2(MyPetrinet myPetrinet) {
+        PetrinetImpl outputPetrinet = new PetrinetImpl("test");
+        Collection<MyPlace> myPlaces = myPetrinet.getMyPlaces();
+        MyPlace current = null;
+
+        for (MyPlace myPlace : myPlaces) {
+            if (myPlace.getId().equals("myStartPlace")) {
+                current = myPlace;
+            }
+        }
+
+        while (true) {
+
+            //avoid double adding
+            Boolean a = true;
+            for (Place p : outputPetrinet.getPlaces()) {
+                if (p.getLabel().equals(current.getId())) {
+                    a = false;
+                }
+            }
+            if (a) {
+                outputPetrinet.addPlace(current.getId());
+            }
+
+            try {
+                outputPetrinet.addTransition(current.getIncomingTransition().getId());
+
+                for (Place p : outputPetrinet.getPlaces()) {
+
+                    if (current.getId().equals(p.getLabel())) {
+                        MyTransition incoming = current.getIncomingTransition();
+                        for (Transition t : outputPetrinet.getTransitions()) {
+                            if (incoming.getId().equals(t.getLabel())) {
+                                outputPetrinet.addArc(t, p);
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+            }
+            try {
+                outputPetrinet.addTransition(current.getOutgoingTransition().getId());
+                for (Place p : outputPetrinet.getPlaces()) {
+                    if (current.getId().equals(p.getLabel())) {
+                        MyTransition outgoing = current.getOutgoingTransition();
+                        for (Transition t : outputPetrinet.getTransitions()) {
+                            if (outgoing.getId().equals(t.getLabel())) {
+                                outputPetrinet.addArc(p, t);
+                                current = outgoing.getOutgoingPlaces().get(0);
+
+                                MyPlace nextPlace = outgoing.getOutgoingPlaces().get(0);
+                                Boolean b = true;
+                                for (Place pb : outputPetrinet.getPlaces()) {
+                                    if (pb.getLabel().equals(nextPlace.getId())) {
+                                        b = false;
+                                    }
+                                }
+                                if(b) {
+                                    outputPetrinet.addPlace(nextPlace.getId());
+                                }
+                                for (Place np : outputPetrinet.getPlaces()) {
+                                    if (current.getId().equals(np.getLabel())) {
+                                        outputPetrinet.addArc(t, np);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                break;//End}
+            }
+        }
+        return outputPetrinet;
+    }
 
     protected static PetrinetImpl getOuputPetrinet(MyPetrinet myPetrinet) {
         PetrinetImpl outputPetrinet = new PetrinetImpl("test");
@@ -64,7 +137,7 @@ public class MyParser {
                             a = false;
                         }
                     }
-                    for (Transition t: outputPetrinet.getTransitions()){
+                    for (Transition t : outputPetrinet.getTransitions()) {
                         if (t.getLabel().equals(myOutgoingPlace.getIncomingTransition().getId())) {
                             b = false;
                         }
@@ -128,7 +201,8 @@ public class MyParser {
                         if (p.getLabel().equals(myIncomingPlace.getId())) {
                             a = false;
                         }
-                    }for (Transition t: outputPetrinet.getTransitions()){
+                    }
+                    for (Transition t : outputPetrinet.getTransitions()) {
                         if (t.getLabel().equals(myIncomingPlace.getIncomingTransition().getId())) {
                             b = false;
                         }
@@ -150,11 +224,11 @@ public class MyParser {
                     System.out.println("we are " + myIncomingPlace.getId());
                     for (Place p : outputPetrinet.getPlaces()) {
 
-                        if(myIncomingPlace.getId().equals(p.getLabel())){
+                        if (myIncomingPlace.getId().equals(p.getLabel())) {
 
                             MyTransition incoming = myIncomingPlace.getIncomingTransition();
-                            for (Transition t : outputPetrinet.getTransitions()){
-                                if(incoming.getId().equals(t.getLabel())){
+                            for (Transition t : outputPetrinet.getTransitions()) {
+                                if (incoming.getId().equals(t.getLabel())) {
                                     System.out.println("This is transition " + t.getLabel());
                                     outputPetrinet.addArc(t, p);
 
@@ -167,7 +241,7 @@ public class MyParser {
 
                                             }
                                         }
-                                    }catch (IndexOutOfBoundsException e){
+                                    } catch (IndexOutOfBoundsException e) {
                                         System.out.println("KAKAKOTT");
                                     }
                                 }

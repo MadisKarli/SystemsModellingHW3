@@ -54,7 +54,8 @@ public class ConverterPlugin {
         // did sth, maybe working
         MyBPMNModel myBPMNModel = MyParser.getMyBPMNModel(diagram);
         MyPetrinet myPetrinet = MyConverter.BPMNtoMyPetrinet(myBPMNModel);
-        PetrinetImpl outputPetrinet = MyParser.getOuputPetrinet(myPetrinet);
+        //PetrinetImpl outputPetrinet = MyParser.getOuputPetrinet(myPetrinet);
+        PetrinetImpl outputPetrinet = MyParser.getOuputPetrinet2(myPetrinet);
 
 
         //pn = MyConverter.getPN(myMyBPMNModel); // fill this object with data from myPNObject
