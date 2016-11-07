@@ -1,13 +1,7 @@
 
 package ut.systems.modelling;
 
-import org.processmining.models.graphbased.directed.bpmn.BPMNDiagram;
-import org.processmining.models.graphbased.directed.bpmn.BPMNNode;
-import org.processmining.models.graphbased.directed.petrinet.Petrinet;
-import org.processmining.models.graphbased.directed.petrinet.impl.PetrinetImpl;
-
 import java.util.*;
-import java.util.function.BooleanSupplier;
 
 /**
  * Created by Joonas Papoonas on 4/11/2016.
@@ -15,7 +9,7 @@ import java.util.function.BooleanSupplier;
  */
 public class MyConverter {
 
-    public static MyPetrinet BPMNtoMyPetrinet(MyBPMNModel myBPMNModel) {
+    public static MyPetrinet BPMNtoMyPetrinet(BPMN myBPMNModel) {
         Random rng = new Random();
         int rngSize = 10000000;
         boolean first = true;
@@ -24,93 +18,76 @@ public class MyConverter {
         MyPlace placeHolder = null;
         MyTransition transitionHolder = null;
 
-        MyPetrinet myOutputPN = new MyPetrinet("myOutputPN");
+        MyPetrinet outputPN = new MyPetrinet("outputPN");
 
 
-        MyPlace myStartPlace = new MyPlace("myStartPlace");
-        MyTransition myStartTransition = new MyTransition("myStartTransition");
+        MyPlace startPlace = new MyPlace("startPlace");
+        MyTransition startTransition = new MyTransition("startTransition");
 
-        myOutputPN.addPlace(myStartPlace);
-        myOutputPN.addTransition(myStartTransition);
-        myOutputPN.addArcP2T(myStartTransition, myStartPlace);
+        outputPN.addPlace(startPlace);
+        outputPN.addTransition(startTransition);
+        outputPN.addArcP2T(startTransition, startPlace);
 
-        MyPlace myEndPlace = new MyPlace("myEndPlace");
-        MyTransition myEndTransition = new MyTransition("myEndTransition");
-        myOutputPN.addPlace(myEndPlace);
-        myOutputPN.addTransition(myEndTransition);
-        myOutputPN.addArcT2P(myEndTransition, myEndPlace);
+        MyPlace endPlace = new MyPlace("endPlace");
+        MyTransition endTransition = new MyTransition("endTransition");
+        outputPN.addPlace(endPlace);
+        outputPN.addTransition(endTransition);
+        outputPN.addArcT2P(endTransition, endPlace);
 
         MyPlace place = new MyPlace("Place " + String.valueOf(rng.nextInt(rngSize)));
         placeHolder = place;
-        myOutputPN.addPlace(place);
-        myOutputPN.addArcT2P(myStartTransition, place);
+        outputPN.addPlace(place);
+        outputPN.addArcT2P(startTransition, place);
 
 
-        MyEvent myStartEvent = myBPMNModel.getStartEvent();
-        MyEvent myEndEvent = myBPMNModel.getEndEvent();
+        MyEvent startEvent = myBPMNModel.getStartEvent();
+        MyEvent endEvent = myBPMNModel.getEndEvent();
 
         Map<MyBPMNNode, MyTransition> myMap = new HashMap<>();
 
-        myMap.put(myStartEvent, myStartTransition);
-        myMap.put(myEndEvent, myEndTransition);
+        myMap.put(startEvent, startTransition);
+        myMap.put(endEvent, endTransition);
 
-        Collection<MySequenceFlow> mySequenceFlows = myBPMNModel.getSequenceFlows();
+        Collection<MySequenceFlow> flows = myBPMNModel.getSequenceFlows();
 
-        Set<MyTransition> myXORsplits = new HashSet<>();
-        Set<MyTransition> myXORjoins = new HashSet<>();
-        Map<MyTransition, MyBPMNModel> mySubprocesses = new HashMap<>();
+        Set<MyTransition> xorSplit = new HashSet<>();
+        Set<MyTransition> xorJoin = new HashSet<>();
+        Map<MyTransition, BPMN> subProcesses = new HashMap<>();
 
 
         //22. - 57.
-        for(MySequenceFlow mySequenceFlow : mySequenceFlows){
-
-
+        for(MySequenceFlow mySequenceFlow : flows){
 
             MyBPMNNode src = mySequenceFlow.getSrc();
             MyBPMNNode tgt = mySequenceFlow.getTgt();
-
-            if(first){
-
-                first = false;
-            }
-
-            /*if(counter == mySequenceFlows.size()){
-                myOutputPN.addArcP2T(myEndTransition, placeHolder);
-            }*/
-
-
 
             //28. - 39.
             if(!myMap.containsKey(src)){
                 MyCompoundTask myCompoundTask = myBPMNModel.isKindOfCompound(src);
                 MyGateway myGateway = myBPMNModel.isKindOfGateway(src);
                 MyTransition srcTransition = new MyTransition("Transition " + String.valueOf(rng.nextInt(rngSize)));
-                //transitionHolder = srcTransition;
 
                 //30. - 38.
                 if(myCompoundTask != null) {
-                    //srcTransition = new MyTransition(src.getId());
-                    //myOutputPN.addTransition(srcTransition);
-                    //myOutputPN.addArcP2T(srcTransition, place);//not in sequence diagram
-                    mySubprocesses.put(srcTransition, myCompoundTask.convertToMyBPMNModel());
+                    subProcesses.put(srcTransition, myCompoundTask.convertToBPMN());
                 }else if(myGateway != null){
                     srcTransition = new MyTransition(src.getId());
-                    myOutputPN.addTransition(srcTransition);
-                    myOutputPN.addArcP2T(srcTransition, place);//not in sequence diagram
+                    outputPN.addTransition(srcTransition);
+                    outputPN.addArcP2T(srcTransition, place);//not in sequence diagram
                     if(myGateway.getType().equals("XOR-Split")){
-                        myXORsplits.add(srcTransition);
+                        xorSplit.add(srcTransition);
                     }else if(myGateway.getType().equals("XOR-Join")){
-                        myXORjoins.add(srcTransition);
+                        xorJoin.add(srcTransition);
                     }
                 }else{
                     //MyTransition myTransition = new MyTransition(src.getId());
-                    myOutputPN.addTransition(srcTransition);
+                    outputPN.addTransition(srcTransition);
                     if(placeHolder == null){
                         place = new MyPlace("Place " + String.valueOf(rng.nextInt(rngSize)));
-                        myOutputPN.addArcP2T(srcTransition, place);//not in sequence diagram
+                        outputPN.addArcP2T(srcTransition, placeHolder);//not in sequence diagram
                         transitionHolder = srcTransition;
                     }else{
-                        myOutputPN.addArcP2T(srcTransition, placeHolder);//not in sequence diagram
+                        outputPN.addArcP2T(srcTransition, placeHolder);//not in sequence diagram
                         transitionHolder = srcTransition;
                         placeHolder = null;
                     }
@@ -118,12 +95,6 @@ public class MyConverter {
                 }
                 myMap.put(src, srcTransition);
             }
-
-
-            //MyTransition srcTransition = myMap.get(src);
-            //myOutputPN.addArcT2P(srcTransition, place);
-
-
 
 
             //45. - 57.
@@ -135,46 +106,35 @@ public class MyConverter {
 
                 if(myCompoundTask != null) {
                     tgtTransition = new MyTransition(tgt.getId());
-                    //myOutputPN.addTransition(tgtTransition);
-                    //myOutputPN.addArcT2P(tgtTransition, place);//not in sequence diagram
-                    mySubprocesses.put(tgtTransition, myCompoundTask.convertToMyBPMNModel());
+                    subProcesses.put(tgtTransition, myCompoundTask.convertToBPMN());
                 }else if(myGateway != null){
                     tgtTransition = new MyTransition(tgt.getId());
-                    myOutputPN.addTransition(tgtTransition);
-                    myOutputPN.addArcT2P(tgtTransition, place);//not in sequence diagram
+                    outputPN.addTransition(tgtTransition);
+                    outputPN.addArcT2P(tgtTransition, placeHolder);//not in sequence diagram
                     if(myGateway.getType().equals("XOR-Split")){
-                        myXORsplits.add(tgtTransition);
+                        xorSplit.add(tgtTransition);
                     }else if(myGateway.getType().equals("XOR-Join")){
-                        myXORjoins.add(tgtTransition);
+                        xorJoin.add(tgtTransition);
                     }
                 }else{
-                    //myOutputPN.addTransition(tgtTransition);
+                    //outputPN.addTransition(tgtTransition);
                     if(placeHolder == null){
 
-                        MyPlace place2 = new MyPlace("Place " + String.valueOf(rng.nextInt(rngSize)));
-                        myOutputPN.addPlace(place2);
-                        myOutputPN.addArcT2P(transitionHolder, place2);
-                        placeHolder = place2;
-                        if(counter == mySequenceFlows.size()-1){
-                            myOutputPN.addArcP2T(myEndTransition, placeHolder);
+                        place = new MyPlace("Place " + String.valueOf(rng.nextInt(rngSize)));
+                        outputPN.addPlace(place);
+                        outputPN.addArcT2P(transitionHolder, place);
+                        placeHolder = place;
+                        if(counter == flows.size()-1){
+                            outputPN.addArcP2T(endTransition, placeHolder);
                         }
                     }else{
-                        myOutputPN.addArcT2P(transitionHolder, placeHolder);
+                        outputPN.addArcT2P(transitionHolder, placeHolder);
 
                         placeHolder = null;
                     }
 
-
-
-                    //MyTransition myTransition = new MyTransition(tgt.getId());
-                    //myOutputPN.addTransition(myTransition);
-                    //myOutputPN.addArcT2P(myTransition, place);//not in sequence diagram
                 }
-                //myMap.put(tgt, tgtTransition);
             }
-
-            //MyTransition tgtTransition = myMap.get(tgt);
-            //myOutputPN.addArcP2T(tgtTransition, place);
 
             counter ++;
         }
@@ -182,28 +142,27 @@ public class MyConverter {
 
 
         //58. - 66.
-        for (MyTransition myTransition : myXORsplits){
+        for (MyTransition myTransition : xorSplit){
 
             MyTransition invisibleTransition = new MyTransition("Transition " + String.valueOf(rng.nextInt(rngSize)));
-            myOutputPN.addTransition(invisibleTransition);
+            outputPN.addTransition(invisibleTransition);
 
-            //out of bounds
-            myOutputPN.addArcP2T(invisibleTransition, myTransition.getIncomingPlaces().get(0));
-            myOutputPN.addArcT2P(invisibleTransition, myTransition.getOutgoingPlaces().get(0));
+            outputPN.addArcP2T(invisibleTransition, myTransition.getIncomingPlaces().get(0));
+            outputPN.addArcT2P(invisibleTransition, myTransition.getOutgoingPlaces().get(0));
 
-            myOutputPN.removeArcT2P(myTransition, myTransition.getOutgoingPlaces().get(0)); //TODO is this needed?, line 66.
+            outputPN.removeArcT2P(myTransition, myTransition.getOutgoingPlaces().get(0));
         }
 
         //67. - 75.
-        for (MyTransition myTransition : myXORjoins){
+        for (MyTransition myTransition : xorJoin){
 
             MyTransition invisibleTransition = new MyTransition("Transition " + String.valueOf(rng.nextInt(rngSize)));
-            myOutputPN.addTransition(invisibleTransition);
+            outputPN.addTransition(invisibleTransition);
 
-            myOutputPN.addArcP2T(invisibleTransition, myTransition.getIncomingPlaces().get(0));
-            myOutputPN.addArcT2P(invisibleTransition, myTransition.getOutgoingPlaces().get(0));
+            outputPN.addArcP2T(invisibleTransition, myTransition.getIncomingPlaces().get(0));
+            outputPN.addArcT2P(invisibleTransition, myTransition.getOutgoingPlaces().get(0));
 
-            myOutputPN.removeArcT2P(myTransition, myTransition.getOutgoingPlaces().get(0)); //TODO is this needed?, line 75.
+            outputPN.removeArcT2P(myTransition, myTransition.getOutgoingPlaces().get(0)); //TODO is this needed?, line 75.
         }
 
 
@@ -211,15 +170,15 @@ public class MyConverter {
 
 
 
-        for(MyTransition subProcessTransition: mySubprocesses.keySet()){
+        for(MyTransition subProcessTransition: subProcesses.keySet()){
 
 
-            MyPetrinet subPetrinet = BPMNtoMyPetrinet(mySubprocesses.get(subProcessTransition));
+            MyPetrinet subPetrinet = BPMNtoMyPetrinet(subProcesses.get(subProcessTransition));
 
             MyPlace inPlace = subProcessTransition.getIncomingPlaces().get(0);
             MyPlace outPlace = subProcessTransition.getOutgoingPlaces().get(0);
 
-            myOutputPN.removeTransition(subProcessTransition);
+            outputPN.removeTransition(subProcessTransition);
 
             //attachPetriNets
             MyPlace subStartPlace = subPetrinet.getStartPlace();
@@ -227,24 +186,24 @@ public class MyConverter {
             MyTransition inTransition = new MyTransition("petrinet to subpetrinet transition");
             MyTransition outTransition = new MyTransition("subpetrinet to petrinet transition");
 
-            myOutputPN.addTransition(inTransition);
-            myOutputPN.addTransition(outTransition);
+            outputPN.addTransition(inTransition);
+            outputPN.addTransition(outTransition);
 
 
-            myOutputPN.addArcP2T(inTransition, inPlace);
-            myOutputPN.addArcT2P(inTransition, subStartPlace);
+            outputPN.addArcP2T(inTransition, inPlace);
+            outputPN.addArcT2P(inTransition, subStartPlace);
 
-            myOutputPN.addArcP2T(outTransition, outPlace);
-            myOutputPN.addArcT2P(outTransition, subEndPlace);
+            outputPN.addArcP2T(outTransition, outPlace);
+            outputPN.addArcT2P(outTransition, subEndPlace);
 
-            for(MyTransition myTransition: subPetrinet.getMyTransitions()){
-                myOutputPN.addTransition(myTransition);
+            for(MyTransition myTransition: subPetrinet.getTransitions()){
+                outputPN.addTransition(myTransition);
             }
 
-            for(MyPlace myPlace: subPetrinet.getMyPlaces()){
-                myOutputPN.addPlace(myPlace);
+            for(MyPlace myPlace: subPetrinet.getPlaces()){
+                outputPN.addPlace(myPlace);
             }
         }
-        return myOutputPN;
+        return outputPN;
     }
 }

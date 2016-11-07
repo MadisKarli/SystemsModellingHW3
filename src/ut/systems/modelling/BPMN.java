@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Created by Joonas Papoonas on 26/10/2016.
  */
-public class MyBPMNModel {
+public class BPMN {
 
     // holding all the nodes, just like in our application model from HW2
     private Set<MyBPMNNode> nodes;
@@ -28,7 +28,7 @@ public class MyBPMNModel {
 
 
     //constructor
-    public MyBPMNModel() {
+    public BPMN() {
     }
 
 

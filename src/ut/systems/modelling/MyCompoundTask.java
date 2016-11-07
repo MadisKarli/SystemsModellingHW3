@@ -20,8 +20,8 @@ public class MyCompoundTask extends MyTask {
     }
 
 
-    public MyBPMNModel convertToMyBPMNModel(){
-        MyBPMNModel myBPMNModel = new MyBPMNModel();
+    public BPMN convertToBPMN(){
+        BPMN myBPMNModel = new BPMN();
         myBPMNModel.setNodes(nodes);
         myBPMNModel.setMySequenceFlows(sequenceFlows);
 

@@ -69,11 +69,11 @@ public class MyPetrinet{
     }
 
 
-    public Collection<MyTransition> getMyTransitions() {
+    public Collection<MyTransition> getTransitions() {
         return myTransitions;
     }
 
-    public Collection<MyPlace> getMyPlaces() {
+    public Collection<MyPlace> getPlaces() {
         return myPlaces;
     }
 

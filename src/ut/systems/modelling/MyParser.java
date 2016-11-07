@@ -4,12 +4,9 @@ import org.processmining.models.graphbased.directed.ContainableDirectedGraphElem
 import org.processmining.models.graphbased.directed.bpmn.*;
 import org.processmining.models.graphbased.directed.bpmn.BPMNNode;
 import org.processmining.models.graphbased.directed.bpmn.elements.*;
-import org.processmining.models.graphbased.directed.petrinet.Petrinet;
-import org.processmining.models.graphbased.directed.petrinet.elements.Arc;
 import org.processmining.models.graphbased.directed.petrinet.elements.Place;
 import org.processmining.models.graphbased.directed.petrinet.elements.Transition;
 import org.processmining.models.graphbased.directed.petrinet.impl.PetrinetImpl;
-import org.processmining.plugins.bpmn.BpmnFlow;
 
 import java.util.*;
 
@@ -22,11 +19,11 @@ public class MyParser {
 
     protected static PetrinetImpl getOuputPetrinet(MyPetrinet myPetrinet) {
         PetrinetImpl outputPetrinet = new PetrinetImpl("test");
-        Collection<MyPlace> myPlaces = myPetrinet.getMyPlaces();
+        Collection<MyPlace> myPlaces = myPetrinet.getPlaces();
         MyPlace current = null;
 
         for (MyPlace myPlace : myPlaces) {
-            if (myPlace.getId().equals("myStartPlace")) {
+            if (myPlace.getId().equals("startPlace")) {
                 current = myPlace;
             }
         }
@@ -127,9 +124,9 @@ public class MyParser {
     }
 
 
-    protected static MyBPMNModel getMyBPMNModel(BPMNDiagram diagram) {
+    protected static BPMN getMyBPMNModel(BPMNDiagram diagram) {
 
-        MyBPMNModel myBPMNModel = new MyBPMNModel();
+        BPMN myBPMNModel = new BPMN();
 
         //going step by step here and adding stuff to the myBPMNModel thing
         myBPMNModel.setNodes(getMyNodes(diagram));
@@ -185,7 +182,7 @@ public class MyParser {
 
     //just inserting target id and source id to the sequenceflow object
     private static MySequenceFlow convertFlow2MySequenceFlow(Flow element, BPMNDiagram diagram) {
-        MyBPMNModel myBPMNModelTemp = new MyBPMNModel();
+        BPMN myBPMNModelTemp = new BPMN();
         myBPMNModelTemp.setNodes(getMyNodes(diagram));
 
         MyBPMNNode srcNode = myBPMNModelTemp.getMyBPMNNode(element.getSource().getId().toString());
