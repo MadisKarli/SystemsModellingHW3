@@ -20,11 +20,11 @@ import java.util.*;
  */
 
 public class MyParser {
-    
+
     private static int usefulInteger = 1337;
     private static int nodeIndexCounter = 0;
 
-    protected static PetrinetImpl getOuputPetrinet(MyPetrinet myPetrinet){
+    protected static PetrinetImpl getOuputPetrinet(MyPetrinet myPetrinet) {
         PetrinetImpl outputPetrinet = new PetrinetImpl("test");
 
         Collection<MyPlace> myPlaces = myPetrinet.getMyPlaces();
@@ -32,32 +32,154 @@ public class MyParser {
         String myLabel = myPetrinet.getLabel();
 
 
-
         //gotta do this after inserting places
-        for(MyPlace myPlace : myPlaces){
-            
+        for (MyPlace myPlace : myPlaces) {
+
             MyTransition outTransition = myPlace.getOutgoingTransition();
-            // this loop is for arcs going from place to transition
-            try{
-                for(MyPlace myIncomingPlace: outTransition.getIncomingPlaces()){
-                    outputPetrinet.addArc(outputPetrinet.addPlace(myIncomingPlace.getId()),
-                            outputPetrinet.addTransition(myPlace.getOutgoingTransition().getId()));
-                }
-            }catch(NullPointerException e){
+            MyTransition inTransition = myPlace.getIncomingTransition();
+            ArrayList<MyPlace> myIncomingPlaces = new ArrayList<>();
+            ArrayList<MyPlace> myOutgoingPlaces = new ArrayList<>();
+
+            try {
+                myIncomingPlaces = outTransition.getIncomingPlaces();
+            } catch (NullPointerException e) {
                 System.out.println(outTransition + " does not have any incoming places");
             }
 
 
-            MyTransition inTransition = myPlace.getIncomingTransition();
-            // this loop is for arcs going from transition to place
             try {
-                for(MyPlace myOutgoingPlace: inTransition.getOutgoingPlaces()){
-                    outputPetrinet.addArc(outputPetrinet.addPlace(myOutgoingPlace.getId()),
-                            outputPetrinet.addTransition(myPlace.getIncomingTransition().getId()));
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
+                myOutgoingPlaces = inTransition.getOutgoingPlaces();
+            } catch (NullPointerException e) {
+                System.out.println(outTransition + " does not have any outgoing places");
             }
+
+            if (myOutgoingPlaces.size() > 0 && myIncomingPlaces.size() > 0) {
+                //TODO not sure if it works
+                for (MyPlace myOutgoingPlace : myOutgoingPlaces) {
+                    Place tgtPlace = new Place(myOutgoingPlace.getId(), outputPetrinet);
+                    outputPetrinet.addPlace(myOutgoingPlace.getId());
+                    outputPetrinet.addTransition(myPlace.getIncomingTransition().getId());
+                    outputPetrinet.addTransition(myPlace.getOutgoingTransition().getId());
+
+//                    if (!outputPetrinet.getPlaces().contains(tgtPlace)) {
+//                        outputPetrinet.addArc(outputPetrinet.addTransition(myPlace.getIncomingTransition().getId()),
+//                                outputPetrinet.addPlace(myOutgoingPlace.getId()));
+//                    }
+                    System.out.println("teine sitt");
+                    System.out.println("we are " + myOutgoingPlace.getId());
+                    for (Place p : outputPetrinet.getPlaces()) {
+                        System.out.println("This is " + p.getLabel());
+                        if(myOutgoingPlace.getId().equals(p.getLabel())){
+                            System.out.println("found match");
+
+                            MyTransition outgoing = myOutgoingPlace.getOutgoingTransition();
+                            for (Transition t : outputPetrinet.getTransitions()){
+                                if(outgoing.getId().equals(t.getLabel())){
+                                    System.out.println("This is transition " + t.getLabel());
+                                    System.out.println("found match 2");
+                                    outputPetrinet.addArc(t, p);
+                                }
+                            }
+
+                            MyTransition incoming = myOutgoingPlace.getIncomingTransition();
+                            for (Transition t : outputPetrinet.getTransitions()){
+                                if(incoming.getId().equals(t.getLabel())){
+                                    System.out.println("This is transition " + t.getLabel());
+                                    System.out.println("found match 2");
+                                    outputPetrinet.addArc(p, t);
+                                }
+                            }
+                        }
+                    }
+                }
+//                for (MyPlace myIncomingPlace : myIncomingPlaces) {
+//                    Place srcPlace = new Place(myIncomingPlace.getId(), outputPetrinet);
+//
+//                    if (!outputPetrinet.getPlaces().contains(srcPlace)) {
+//                        outputPetrinet.addArc(outputPetrinet.addPlace(myIncomingPlace.getId()),
+//                                outputPetrinet.addTransition(myPlace.getOutgoingTransition().getId()));
+//                    }
+//
+//                }
+
+            } else if (myOutgoingPlaces.size() > 0) {
+                for (MyPlace myOutgoingPlace : myOutgoingPlaces) {
+                    Place tgtPlace = new Place(myOutgoingPlace.getId(), outputPetrinet);
+
+                    if (!outputPetrinet.getPlaces().contains(tgtPlace)) {
+                        outputPetrinet.addArc(outputPetrinet.addTransition(myPlace.getIncomingTransition().getId()),
+                                outputPetrinet.addPlace(myOutgoingPlace.getId()));
+                    }
+                    System.out.println("myOutgoingPlaces.size() > 0");
+                    System.out.println("we are " + myOutgoingPlace.getId());
+                    for (Place p : outputPetrinet.getPlaces()) {
+                        System.out.println("This is " + p.getLabel());
+                        if(myOutgoingPlace.getId().equals(p.getLabel())){
+                            System.out.println("found match");
+                            MyTransition incoming = myOutgoingPlace.getIncomingTransition();
+                            for (Transition t : outputPetrinet.getTransitions()){
+                                System.out.println("This is transition " + t.getLabel());
+                                if(incoming.getId().equals(t.getLabel())){
+                                    System.out.println("found match 2");
+                                    outputPetrinet.addArc(t, p);
+                                }
+                            }
+                        }
+                    }
+                }
+            } else if (myIncomingPlaces.size() > 0) {
+                for (MyPlace myIncomingPlace : myIncomingPlaces) {
+                    Place srcPlace = new Place(myIncomingPlace.getId(), outputPetrinet);
+                    Transition tgtTransition = new Transition(myPlace.getOutgoingTransition().getId(), outputPetrinet);
+                    if (!outputPetrinet.getPlaces().contains(srcPlace)) {
+                        outputPetrinet.addArc(outputPetrinet.addPlace(myIncomingPlace.getId()),
+                                outputPetrinet.addTransition(myPlace.getOutgoingTransition().getId()));
+                    }
+                    //Kas leiame eelmise üles
+                    System.out.println("myIncomingPlaces.size() > 0");
+                    System.out.println("we are" + myIncomingPlace.getId());
+                    for (Place p : outputPetrinet.getPlaces()) {
+                        System.out.println("This is place " + p.getLabel());
+                    }
+                    for (Transition p : outputPetrinet.getTransitions()){
+                        System.out.println("This is transition " + p.getLabel());
+                    }
+                }
+            } else {
+                System.out.println(myPlace + "is a weird place without incoming or outgoing transitions");
+            }
+
+
+            for(MyTransition myTransition: myTransitions){
+
+            }
+
+            //This thing actually works
+//            try{
+//                for(MyPlace myIncomingPlace: outTransition.getIncomingPlaces()){
+//                    Place srcPlace = new Place(myIncomingPlace.getId(), outputPetrinet);
+//                    Transition tgtTransition = new Transition(myPlace.getOutgoingTransition().getId(), outputPetrinet);
+//                    if(!outputPetrinet.getPlaces().contains(srcPlace)){
+//                        outputPetrinet.addArc(outputPetrinet.addPlace(myIncomingPlace.getId()),
+//                                outputPetrinet.addTransition(myPlace.getOutgoingTransition().getId()));
+//                    }
+//                }
+//            }catch(NullPointerException e){
+//                System.out.println(outTransition + " does not have any incoming places");
+//            }
+
+
+//            MyTransition inTransition = myPlace.getIncomingTransition();
+//            // this loop is for arcs going from transition to place
+//            for(MyPlace myOutgoingPlace: inTransition.getOutgoingPlaces()){
+//                Place tgtPlace = new Place(myOutgoingPlace.getId(), outputPetrinet);
+//                Transition srcTransition = new Transition(myPlace.getIncomingTransition().getId(), outputPetrinet);
+//                // package the Arc class and send on its way
+//                if(outputPetrinet.getArc(tgtPlace, srcTransition).equals(null)){
+//                    outputPetrinet.addArc(tgtPlace, srcTransition);
+//                }
+//
+//            }
         }
 
 
@@ -65,9 +187,7 @@ public class MyParser {
     }
 
 
-
-
-    protected static MyBPMNModel getMyBPMNModel(BPMNDiagram diagram){
+    protected static MyBPMNModel getMyBPMNModel(BPMNDiagram diagram) {
 
         MyBPMNModel myBPMNModel = new MyBPMNModel();
 
@@ -85,11 +205,11 @@ public class MyParser {
 
     /////////////////////////////////// NODE STUFF /////////////////////////////////////////////////
     //converts BPMNDiagram nodes into our Node format
-    private static Set<MyBPMNNode> getMyNodes(BPMNDiagram diagram){
+    private static Set<MyBPMNNode> getMyNodes(BPMNDiagram diagram) {
         Set<BPMNNode> nodes = diagram.getNodes();
         Set<MyBPMNNode> myNodes = new HashSet<MyBPMNNode>();
 
-        for ( BPMNNode element : nodes) {
+        for (BPMNNode element : nodes) {
             MyBPMNNode myNode = convertBPMNNode2MyBPMNNode(element);
             myNodes.add(myNode); // fucken fails here. np exception
             //element.getLabel();
@@ -105,22 +225,18 @@ public class MyParser {
     //Also how gotta look into how to extract if BPMNNode is a task, event or a gateway
     //  since there is no 'getTasks' method for BPMNNode imo
     // the BPMNDiagram node has some weird parameters, check later what is useful and what is not
-    private static MyBPMNNode convertBPMNNode2MyBPMNNode(BPMNNode node){
+    private static MyBPMNNode convertBPMNNode2MyBPMNNode(BPMNNode node) {
         MyBPMNNode myNode = new MyBPMNNode(node.getId().toString());
         return myNode;
     }
 
 
-
-
-    
-
-////////////////////////////// SEQUENCEFLOW STUFF ////////////////////////////////////////
-    private static Collection<MySequenceFlow> getMySequenceFlows(BPMNDiagram diagram){
+    ////////////////////////////// SEQUENCEFLOW STUFF ////////////////////////////////////////
+    private static Collection<MySequenceFlow> getMySequenceFlows(BPMNDiagram diagram) {
         Collection<Flow> flows = diagram.getFlows();
         Collection<MySequenceFlow> myFlows = new ArrayList<MySequenceFlow>();
 
-        for (Flow element : flows){
+        for (Flow element : flows) {
             myFlows.add(convertFlow2MySequenceFlow(element, diagram));
             //System.out.println(element.toString());
         }
@@ -141,16 +257,14 @@ public class MyParser {
     }
 
 
-
-
 /////////////////////// TASKS STUFF     ///////////////////////////////////////////////////
 
 
-    private static Collection<MyTask> getMyTasks(BPMNDiagram diagram){
+    private static Collection<MyTask> getMyTasks(BPMNDiagram diagram) {
         Collection<Activity> activities = diagram.getActivities();
         Collection<MyTask> myTasks = new ArrayList<MyTask>();
 
-        for (Activity element : activities){
+        for (Activity element : activities) {
             myTasks.add(convertActivity2MyTask(element));
             System.out.println(element.toString());
             //System.out.println(element.getId());
@@ -166,11 +280,11 @@ public class MyParser {
 
 /////////////////////////// COMPOUNDTASK STUFF //////////////////////////////////////////
 
-    private static Collection<MyCompoundTask> getMyCompundTasks(BPMNDiagram diagram){
+    private static Collection<MyCompoundTask> getMyCompundTasks(BPMNDiagram diagram) {
         Collection<SubProcess> subProcesses = diagram.getSubProcesses();
         Collection<MyCompoundTask> myCompoundTasks = new ArrayList<MyCompoundTask>();
 
-        for (SubProcess element : subProcesses){
+        for (SubProcess element : subProcesses) {
             myCompoundTasks.add(convertSubProcess2MyCompoundTask(element, diagram));
             System.out.println(element.toString());
         }
@@ -187,11 +301,11 @@ public class MyParser {
         myCompoundTask.setNodes(myNodes);
         myCompoundTask.setMySequenceFlows(myFlows);
 
-        for (ContainableDirectedGraphElement node : nodes){
+        for (ContainableDirectedGraphElement node : nodes) {
             myNodes.add(convertSubNode2MyBPMNNode(node));
         }
 
-        for (Flow flow : flows){
+        for (Flow flow : flows) {
             myFlows.add(convertFlow2MySequenceFlow(flow, diagram));
         }
         return myCompoundTask;
@@ -205,11 +319,11 @@ public class MyParser {
 
 ////////////////////////////////// MYGATEWAY STUFF ////////////////////////////////////////////
 
-    private static Collection<MyGateway> getMyGateways(BPMNDiagram diagram){
+    private static Collection<MyGateway> getMyGateways(BPMNDiagram diagram) {
         Collection<Gateway> gateways = diagram.getGateways();
         Collection<MyGateway> myGateways = new ArrayList<MyGateway>();
 
-        for (Gateway element : gateways){
+        for (Gateway element : gateways) {
             myGateways.add(convertGateway2MyGateway(element));
         }
         return myGateways;
@@ -224,11 +338,11 @@ public class MyParser {
 ////////////////////////// MYEVENT STUFF //////////////////////////////////////////////////////
 
 
-    private static Collection<MyEvent> getMyEvents(BPMNDiagram diagram){
+    private static Collection<MyEvent> getMyEvents(BPMNDiagram diagram) {
         Collection<Event> events = diagram.getEvents();
         Collection<MyEvent> myEvents = new ArrayList<MyEvent>();
 
-        for (Event element : events){
+        for (Event element : events) {
             myEvents.add(convertEvent2MyEvent(element));
             System.out.println(element.getId());
         }
@@ -239,8 +353,6 @@ public class MyParser {
         MyEvent myEvent = new MyEvent(element.getId().toString());
         return myEvent;
     }
-
-
 
 
 }
