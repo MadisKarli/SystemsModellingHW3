@@ -38,24 +38,9 @@ public class ConverterPlugin {
         // MyBPMNModel in our application model (should be other way around imho)
 
 
-        //MyBPMNModel myMyBPMNModel = MyParser.getMyBPMNModel(diagram);
-        //MyPetriNet myPetriNet = MyConverter.getPN(myMyBPMNModel);
-
-        //lets say i have a class called parser
-        //with method getmybpmnmodeol
-        //lets say we have class myconverter with method getPN
-
-        //sth from practice session question
-        //Transition t  = new Transition("", pn);
-        //t.setInvisible(true);
-
-
-
-        // did sth, maybe working
         MyBPMNModel myBPMNModel = MyParser.getMyBPMNModel(diagram);
         MyPetrinet myPetrinet = MyConverter.BPMNtoMyPetrinet(myBPMNModel);
-        //PetrinetImpl outputPetrinet = MyParser.getOuputPetrinet(myPetrinet);
-        PetrinetImpl outputPetrinet = MyParser.getOuputPetrinet2(myPetrinet);
+        PetrinetImpl outputPetrinet = MyParser.getOuputPetrinet(myPetrinet);
 
 
         //pn = MyConverter.getPN(myMyBPMNModel); // fill this object with data from myPNObject
